@@ -35,6 +35,76 @@ REGEDIT4
 "WndWidth"=dword:000001b8
 "WndHeight"=dword:000001f9
 
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\Disk Cleaner]
+"AutoScan"=dword:00000001
+"DeleteTempFiles"=dword:00000001
+"WndLeft"=dword:00000212
+"WndTop"=dword:000000e6
+"WndWidth"=dword:0000035c
+"WndHeight"=dword:0000026c
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\Disk Cleaner\CheckedType]
+"FileZilla"=dword:00000001
+"MPC-HC"=dword:00000001
+"SysUpdate"=dword:00000000
+"FontCache"=dword:00000000
+"OldPrefetch"=dword:00000000
+"IISLogFiles"=dword:00000000
+"DesktopShortcut"=dword:00000000
+"StartShortcut"=dword:00000000
+"Recycle"=dword:00000001
+"SysLogFiles"=dword:00000001
+"ErrorReprotin"=dword:00000001
+"MemoryDump"=dword:00000001
+"SysTemp"=dword:00000001
+"SysInstaller"=dword:00000001
+"SysDownLoad"=dword:00000000
+"RemoteDesktopCache"=dword:00000000
+"UserTemp"=dword:00000001
+"SnipSketch"=dword:00000001
+"Steam"=dword:00000001
+"Adobe Reader"=dword:00000001
+"wmplayer"=dword:00000001
+"InternetDownloadManager"=dword:00000000
+"HandBrake"=dword:00000000
+"AdobeAir"=dword:00000001
+"GoogleEarth"=dword:00000001
+"TeamViewer"=dword:00000001
+"ACDSeeCache"=dword:00000000
+"RemoteDesktop"=dword:00000000
+"Java"=dword:00000000
+"EarthCache"=dword:00000000
+"MSOneDrive"=dword:00000001
+"Spotify"=dword:00000001
+"K-LiteCodecPackFull"=dword:00000001
+"GoogleChromeCache"=dword:00000001
+"IECache"=dword:00000001
+"MicrosoftEdgeCache"=dword:00000001
+"ExplorerThumCache"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\Disk Cleaner\Exclude]
+"?:\\program files\\common files"=dword:00000001
+"?:\\program files\\uninstall information"=dword:00000001
+"?:\\win*\\security"=dword:00000001
+"*\\sendto"=dword:00000001
+"*\\i386"=dword:00000001
+"*\\resources\\themes"=dword:00000001
+"*\\temporary internet files"=dword:00000001
+"*\\microsoft\\office\\data"=dword:00000001
+"*\\microsoft\\money\\*\\webcache"=dword:00000001
+"*\\chaos32"=dword:00000001
+"*\\paprport\\data"=dword:00000001
+"*\\symantec shared\\virusdefs"=dword:00000001
+"?:\\system volume information"=dword:00000001
+"?:\\_restore"=dword:00000001
+"?:\\recycle?"=dword:00000001
+"*\\temp\\incredimail"=dword:00000001
+"*\\norton antivirus\\quarantine"=dword:00000001
+"*\\system32\\usmt"=dword:00000001
+"*\\system32\\catroot2"=dword:00000001
+"*\\application data\\microsoft"=dword:00000001
+"*\\application data\\aim"=dword:00000001
+
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\DupeFinder]
 "IgnoreFile"=dword:00000000
 "IgnoreSize"=dword:00000000
@@ -95,6 +165,20 @@ REGEDIT4
 "OC_REMOVETF"=dword:00000001
 "OC_OPTIMIZESA"=dword:00000001
 
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\OneClick\Selected\DiskCleanerN]
+"FireFoxCache"=dword:00000001
+"SysUpdate"=dword:00000000
+"OldPrefetch"=dword:00000000
+"ErrorReprotin"=dword:00000001
+"SysLogFiles"=dword:00000001
+"MemoryDump"=dword:00000001
+"Recycle"=dword:00000001
+"SysTemp"=dword:00000001
+"SysInstaller"=dword:00000001
+"UserTemp"=dword:00000001
+"IECache"=dword:00000001
+"ExplorerThumCache"=dword:00000001
+
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\QuickSearch]
 "Details Bar"="1"
 "CloseToTray"="0"
@@ -120,6 +204,7 @@ REGEDIT4
 "SaveLog"=dword:00000001
 "ShowQuicklaunchTips"=dword:00000001
 "Auto1ClickCare"=dword:00000000
+"DeleteOlderTempFile"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\Settings\ContextMenu]
 "Analyze Diskspace"=dword:00000000
@@ -135,6 +220,11 @@ REGEDIT4
 "EraseTracks"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\SoftwareUpdate]
+"UpdateVersion"=dword:68d7477a
+"NeedUpdateCount"=dword:00000004
+"NeedUpdateBetaCount"=dword:00000000
+"SoftUpdateURL"="http://www.filepuma.com/updates3v2/23490227092025DD1758941363TTLbxkEMjnHPyzhDY6068d750b32ecac800675213/"
+"UserFlagId"="23490227092025DD1758941363TTLbxkEMjnHPyzhDY6068d750b32ecac800675213"
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities 5\startup]
 
@@ -149,21 +239,23 @@ REGEDIT4
 "List_Width_1"=dword:00000064
 "List_Width_2"=dword:00000064
 "List_Width_3"=dword:00000064
-"List_Sys_Sort"=dword:00000000
-"List_Sys_Des"=dword:00000000
+"List_Sys_Sort"=dword:00000003
+"List_Sys_Des"=dword:00000001
 "List_Scheduled_Sort"=dword:00000003
 "List_Scheduled_Des"=dword:00000001
 "List_Plus_Sort"=dword:00000000
 "List_Plus_Des"=dword:00000000
-"List_Ser_App_Sort"=dword:00000000
-"List_Ser_App_Des"=dword:00000000
+"List_Ser_App_Sort"=dword:00000003
+"List_Ser_App_Des"=dword:00000001
 "List_Ser_Sys_Sort"=dword:00000000
 "List_Ser_Sys_Des"=dword:00000000
 "Detail_Open"=dword:00000001
+"List_Width_4"=dword:00000064
+"List_Width_5"=dword:00000064
 
 [HKEY_CURRENT_USER\Software\GlarySoft\DiskDefrag]
-"DiskChecked"=dword:00000010
-"DiskCheckMask"=dword:0000003c
+"DiskChecked"=dword:00000000
+"DiskCheckMask"=dword:0200000c
 "DefragFinish"=dword:00008022
 "MinAndMax"=dword:00000000
 "Rect_Left"=dword:000003b1

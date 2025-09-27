@@ -115,3 +115,33 @@
    at FanControl.Domain.BackendProviders.NVApiWrapper.NVApiTempSensor.Update()
    at FanControl.Domain.BackendProviders.NVApiWrapper.NVApiWrapperBackendProvider.Update()
 7/9/2025 8:12:56 AM: NvAPI failed. A complete refresh is required.
+9/20/2025 4:30:02 PM: Open - NvAPIWrapper.Native.Exceptions.NVIDIAApiException: NVAPI_NOT_SUPPORTED
+   at NvAPIWrapper.GPU.GPUCoolerInformation.<get_Coolers>d__2.MoveNext()
+   at System.Linq.Enumerable.<SelectIterator>d__5`2.MoveNext()
+   at System.Linq.Enumerable.<SelectManyIterator>d__19`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at FanControl.Domain.BackendProviders.NVApiWrapper.NVApiWrapperBackendProvider.Open()
+9/20/2025 4:30:39 PM: Open - NvAPIWrapper.Native.Exceptions.NVIDIAApiException: NVAPI_NOT_SUPPORTED
+   at NvAPIWrapper.GPU.GPUCoolerInformation.<get_Coolers>d__2.MoveNext()
+   at System.Linq.Enumerable.<SelectIterator>d__5`2.MoveNext()
+   at System.Linq.Enumerable.<SelectManyIterator>d__19`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at FanControl.Domain.BackendProviders.NVApiWrapper.NVApiWrapperBackendProvider.Open()
+9/20/2025 4:30:49 PM: Open - NvAPIWrapper.Native.Exceptions.NVIDIAApiException: NVAPI_NOT_SUPPORTED
+   at NvAPIWrapper.GPU.GPUCoolerInformation.<get_Coolers>d__2.MoveNext()
+   at System.Linq.Enumerable.<SelectIterator>d__5`2.MoveNext()
+   at System.Linq.Enumerable.<SelectManyIterator>d__19`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at FanControl.Domain.BackendProviders.NVApiWrapper.NVApiWrapperBackendProvider.Open()
+9/20/2025 4:30:59 PM: Open - NvAPIWrapper.Native.Exceptions.NVIDIAApiException: NVAPI_NOT_SUPPORTED
+   at NvAPIWrapper.GPU.GPUCoolerInformation.<get_Coolers>d__2.MoveNext()
+   at System.Linq.Enumerable.<SelectIterator>d__5`2.MoveNext()
+   at System.Linq.Enumerable.<SelectManyIterator>d__19`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at FanControl.Domain.BackendProviders.NVApiWrapper.NVApiWrapperBackendProvider.Open()
+9/20/2025 4:30:59 PM: Try refresh failed. Retry count (4) exceeded.
+NVApi could not initialize or has no sensors.

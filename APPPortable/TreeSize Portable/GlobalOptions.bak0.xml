@@ -58,8 +58,8 @@
 	<MainFormWindowPlacement.flags>2</MainFormWindowPlacement.flags>
 	<MainFormWindowPlacement.showCmd>3</MainFormWindowPlacement.showCmd>
 	<MainFormWindowPlacement.ptMinPosition>
-		<X>-1</X>
-		<Y>-1</Y>
+		<X>-32000</X>
+		<Y>-32000</Y>
 	</MainFormWindowPlacement.ptMinPosition>
 	<MainFormWindowPlacement.ptMaxPosition>
 		<X>-1</X>
@@ -6032,4 +6032,5 @@
 		<Bottom>773</Bottom>
 	</AddNewScanDialogWindowPlacement.rcNormalPosition>
 	<ScanHistoryFile>C:\#mirza\APPPortable\TreeSize Portable\scanhistory.xml</ScanHistoryFile>
+	<ScanHistoryDatabase>C:\#mirza\APPPortable\TreeSize Portable\scanhistory.sqlite</ScanHistoryDatabase>
 </GlobalOptions>

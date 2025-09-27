@@ -1,7 +1,4 @@
 no filtering:
-  - 10\.\d+\.\d+\.\d+
-  - 172.16.*.*^
-  - 192.168.*.*^
   - hallonet.mnet.my.id
   - cloud-as.ruijienetworks.com
   - giphy.com
@@ -16,6 +13,7 @@ no filtering:
   - mail.google.com
   - bgp.he.net
   - 9gag.com
+  - lottiefiles.com
   - about-scheme
   - account.microsoft.com
   - account.ui.com
@@ -239,20 +237,9 @@ no filtering:
   - books.google.com
   - earth.google.com
   - notebooklm.google.com
-  - ssstik.io
+  - app.diagrams.net
+  - myaccount.google.com
   - aduankonten.id
-  - difacomp.aplikasi.repair
-  - 10.10.2.11
-  - app.khaddavi.net
-  - dnsmap.io
-  - check.spamhaus.org
-  - who.is
-  - www.mi.co.id
-  - www.mobilelegends.com
-  - en.moonton.com
-  - www.icloud.com
-  - app.gajihub.com
-  - reyee.ruijie.com
 basic:
 optimal:
   - all-urls
