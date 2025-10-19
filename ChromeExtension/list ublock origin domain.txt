@@ -11,6 +11,7 @@ no filtering:
   - 192.168.99.252
   - 192.168.99.253
   - 192.168.99.254
+  - 192.168.200.5
   - about-scheme
   - account.microsoft.com
   - account.ookla.com
@@ -26,7 +27,6 @@ no filtering:
   - app.any.run
   - app.gajihub.com
   - app.geospy.ai
-  - app.khaddavi.net
   - app.netwatch.id
   - appnee.com
   - archive.org
@@ -78,7 +78,6 @@ no filtering:
   - en.moonton.com
   - epson.co.id
   - esakip.brebeskab.go.id
-  - facebook.com
   - fast.com
   - filecrypt.cc
   - forum.mikrotik.com
@@ -95,6 +94,7 @@ no filtering:
   - hallonet.topsetting.com
   - home.s.id
   - hotspotan.com
+  - ibank.bni.co.id
   - ibanking.bankjateng.co.id
   - ibox.co.id
   - id.atlassian.com
@@ -147,7 +147,6 @@ no filtering:
   - nms.gsmnet.id
   - notebooklm.google.com
   - one.google.com
-  - ookla.auth0.com
   - opera-scheme
   - pagespeed.web.dev
   - pahe.ph
@@ -166,7 +165,6 @@ no filtering:
   - portal.biznetgio.com
   - portalmahasiswa.mataerdigital.com
   - post.copydev.com
-  - prime.ubisa.ac.id
   - rarbgway.org
   - rekamjejak.net
   - rekrutmenbersama.fhcibumn.id
@@ -209,6 +207,7 @@ no filtering:
   - twitch.tv
   - twitter.com
   - unjac-my.sharepoint.com
+  - vindi.bca.co.id
   - vivaldi-scheme
   - web.telegram.org
   - web.whatsapp.com
@@ -222,8 +221,8 @@ no filtering:
   - www.capcut.com
   - www.cbn.id
   - www.dnsleaktest.com
-  - www.facebook.com
   - www.google.co.id
+  - www.google.com
   - www.hondacengkareng.com
   - www.hotstar.com
   - www.icloud.com
@@ -233,6 +232,7 @@ no filtering:
   - www.mi.co.id
   - www.mobilelegends.com
   - www.msi.com
+  - www.mybca.bca.co.id
   - www.nperf.com
   - www.opensubtitles.org
   - www.peeringdb.com
@@ -247,12 +247,37 @@ no filtering:
   - www.viu.com
   - www.watermarkremover.io
   - www.waveform.com
+  - www.youtube.com
   - wyciwyg-scheme
   - xdaforums.com
   - zertalious.xyz
   - zoom.us
-  - www.youtube.com
+  - linkbit.net.id
+  - nya2.com
+  - 103.216.106.202
+  - www.intel.com
+  - www.intel.co.id
+  - jet.co.id
+  - www.pwabuilder.com
+  - mrtg.airlink.net.id
+  - checkout.xendit.co
+  - www.cloudflare.com
+  - app.diagrams.net
+  - coretaxdjp.pajak.go.id
+  - sscasn.bkn.go.id
+  - sso.data.kemendikdasmen.go.id
+  - bssn-apjii.id
+  - andreluis034.github.io
+  - stormwall.id
+  - docs.librenms.org
+  - help.mikrotik.com
+  - hyperglass.dev
+  - demo.dynamsoft.com
 basic:
-optimal:
   - all-urls
+optimal:
+  - www.facebook.com
+  - www.gsmarena.com
 complete:
+  - movieku.fit
+  - nomat.site
