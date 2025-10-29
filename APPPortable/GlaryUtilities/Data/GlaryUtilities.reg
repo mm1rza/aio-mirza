@@ -1,0 +1,92 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\Software\GlarySoft]
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities]
+"Language"="english.lng"
+"Current View"=dword:00000000
+"ATCPageIndex"=dword:00000000
+"ATPageIndex"=dword:00000001
+"AutoRepair"=dword:00000000
+"AutoAction"=dword:00000000
+"Transparen"=dword:00000000
+"BootTime"="237048"
+"Update"=dword:69023c6f
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\DockBar Tools]
+"ADT_SC_STARTUPI"=dword:00000000
+"ADT_WR_REPAIR"=dword:00000001
+"ADT_DS_CLEANUP"=dword:00000002
+"ADT_SC_CONTEXTM"=dword:00000003
+"ADT_DS_EXPLORERD"=dword:00000004
+"ADT_PROGRAMS_UNINSTALL"=dword:00000005
+"ADT_PROGRAMS_CHECKFU"=dword:00000006
+"ADT_FM_QUICKS"=dword:00000007
+"ADT_PRIVACY_ERASEH"=dword:00000008
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\OneClick]
+"DeepClean"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Settings]
+"BackupsMax"=dword:0000003c
+"BackupsDelete"=dword:00000001
+"AutoLoad"=dword:00000000
+"Minitotray"=dword:00000000
+"ShowBalloonMinitotray"=dword:00000000
+"SkipUAC"=dword:00000001
+"HelpPlan"=dword:00000000
+"SubMenuMode"=dword:00000000
+"Checkupdates"=dword:00000000
+"AutoSoftupdate"=dword:00000000
+"DisabledCheck"=dword:00000001
+"SaveLog"=dword:00000000
+"ShowQuicklaunchTips"=dword:00000000
+"Auto1ClickCare"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Settings\ContextMenu]
+"Analyze Diskspace"=dword:00000000
+"Decrypt"=dword:00000000
+"Disk Defrag"=dword:00000000
+"EmptyFolder"=dword:00000000
+"Encrypt"=dword:00000000
+"Join"=dword:00000000
+"Split"=dword:00000000
+"Wipe"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Settings\PrivacyTracks]
+"EraseTracks"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\SoftwareUpdate]
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\startup]
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\startup\WndStatus]
+"Tab_Index"=dword:00000004
+"List_Width_0"=dword:00000104
+"List_Width_1"=dword:00000064
+"List_Width_2"=dword:00000064
+"List_Width_3"=dword:00000064
+"List_Sys_Sort"=dword:00000003
+"List_Sys_Des"=dword:00000001
+"List_Scheduled_Sort"=dword:00000003
+"List_Scheduled_Des"=dword:00000001
+"List_Plus_Sort"=dword:00000000
+"List_Plus_Des"=dword:00000000
+"List_Ser_App_Sort"=dword:00000003
+"List_Ser_App_Des"=dword:00000001
+"List_Ser_Sys_Sort"=dword:00000003
+"List_Ser_Sys_Des"=dword:00000001
+"Detail_Open"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft\Glary Utilities]
+"RootDir"="D:\\Downloads\\Glary Utilities Pro 6.33.0.37.kuyhAa\\Glary Utilities Pro 6.33.0.37.kuyhAa\\GlaryUtilities\\App\\GlaryUtilities\\"
+"ChannelNo"="1000"
+"Date"="45959.9651157407"
+"Version"="6.33.0.37"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft\Glary Utilities\RegisterInfo]
+"LicenseCode"="qM30QmYCQFfFRoqhUJGYm6FxiYRSgJKojPCKOhVs7NL91vRsYLD5/mPXj7AMGfm3DF4KCeT7vjzFFo79isCgtQ=="
+"RegUserName"="cuaeNrgrpWffYNK3I33wqAwUUNJIyg+cUuRhldWEhAA="
+"AccountStatue"="EGt4ihxRByVtHPPzbWmKEY2yE4eF+fF+B42isbala2o="

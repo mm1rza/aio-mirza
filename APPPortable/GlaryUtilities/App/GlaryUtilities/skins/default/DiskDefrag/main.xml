@@ -1,0 +1,32 @@
+<LinearLayout name="main" orientation="Vertical" width="-2" height="-2">
+	<styles>
+		<style name="frame" border-color="240,240,240" />
+	</styles>
+	<LinearLayout name="toolbar" width="-2" height="-1">
+		<WndLayout wnd_id="0xE800" width="-2" height="-1"/>
+	</LinearLayout>
+	<LinearLayout orientation="Vertical" width="-2" height="0" weight="1.0" padding="3 3 3 3">
+		<LinearLayout name="disk_list" style="frame" orientation="Horizontal" width="-2" min_height="80" max_height="100" height="0" weight="1.0" weight_level="1" padding="1 1 1 1">
+			<WndLayout wnd_id="1000" width="-2" height="-2"/>
+		</LinearLayout>
+		<TrackerLayout height="5"/>
+		<LinearLayout name="btn_and_disk_map" orientation="Vertical" width="-2" height="0" min_height="60" max_height="100" weight="1.0" weight_level="2">
+			<LinearLayout orientation="Horizontal" width="-2" height="-1">
+				<WndLayout name="btn_annlysis" wnd_id="1001" width="-1" height="-1"/>
+				<WndLayout name="btn_defrag" wnd_id="1002" width="-1" height="-1" margin="5 0 5 0"/>
+				<WndLayout name="btn_pause" wnd_id="1003" width="-1" height="-1" margin="5 0 5 0"/>
+				<WndLayout name="btn_stop" wnd_id="1004" width="-1" height="-1" margin="5 0 5 0"/>
+				<LinearLayout orientation="Horizontal" width="0" height="-1" weight="1.0" gravity="right" margin="0 3 0 0">
+					<WndLayout name="btn_close_pc" wnd_id="1005" width="-1" height="-1" gravity="centor" margin="5 0 5 0"/>
+					<WndLayout name="btn_close_pc_down" wnd_id="1099" width="-1" height="-1" gravity="centor" margin="5 0 0 0"/>
+				</LinearLayout>
+			</LinearLayout>
+			<WndLayout name="disk_map" wnd_id="1042" width="-2" height="0" weight="1.0" margin="0 5 0 0"/>
+		</LinearLayout>
+		<TrackerLayout height="5"/>
+		<WndLayout name="disk_info" wnd_id="0xE805" width="-2" height="0" min_height="250" weight="1.0" weight_level="3"/>
+	</LinearLayout>
+	<WndLayout name="disk_info" wnd_id="0xE801" width="-2" height="-1" gravity="centor">
+		<WndLayout name="process" wnd_id="1092" width="-1" height="-1" gravity="right" visible="false" margin="150 1 20 0"/>
+	</WndLayout>
+</LinearLayout>

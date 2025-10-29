@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+	<script src="js/jquery.js"></script>
+<script src="js/external-api.js" type="text/javascript" language="javascript"></script>
+<meta charset="utf-8">
+<title>upgrade</title>
+	<style>
+		*{
+			margin: 0; padding: 0;
+		}
+		html, body{
+			font-family:Tahoma, "serif";
+			font-size: 12px;
+			color: #222c4c;
+			line-height: 24px;
+		}
+		.wrap{ width:628px; height: 445px; background-color: #ffffff; margin: 0 auto;}
+		.close{ height: 36px;text-align: right; padding-right: 20px;}
+		#ButtonClose{ display: inline-block; width:16px; height: 16px; background-image: url("images/close-default.png"); margin-top: 10px;}
+		.content{width:516px; margin:0 auto;}
+		.h1, .h2{ font-size: 16px; text-align: center;  color: #222c4c; margin-bottom: 10px;}
+		.h2{ font-size: 14px;}
+		.introduce li{
+			list-style: none;
+			background:url("images/li-dot.png") 0 center no-repeat; padding-left: 10px;
+		}
+		.line{ height: 1px; background-color: #eff1f4; margin: 10px 0 20px;}
+		.choose{ height: 172px;}
+		.choose-item{ width:116px; height:132px; display: inline-block; *display:inline; *zoom:1; overflow: hidden; padding: 20px; text-align: center; background: url("images/bg.png") center center no-repeat;}
+		.choose-item.mid{ margin: 0 20px; *margin: 0 24px; position: relative;}
+		.choose-item.mid img{ position: absolute; left:0; top: 0;}
+		.price{ color: #ff5c45; font-size: 18px; margin: 20px 0;}
+		.price span{ font-size: 42px;}
+		.purchase-btn{ display: inline-block; width:111px; height: 32px; background: url("images/purchasenow-default.png") center center no-repeat; color: #ffffff; font-size: 11px; text-decoration:none; line-height: 32px;}
+		.purchase-btn:hover{background: url("images/purchasenow-hover.png") center center no-repeat; }
+		.purchase-btn:active{background: url("images/purchasenow-click.png") center center no-repeat; }
+		.guarantee{margin: 25px 0;}
+		.guarantee p{ display: inline-block; padding-left: 30px; *float:left; }
+		.payment-guarantee{ background: url("images/ico-0.png") 3px center no-repeat; padding-left: 30px; margin-bottom: 25px; }
+		.time-guarantee{ background: url("images/ico-2.png") 0 center no-repeat;}
+		.support-guarantee{background: url("images/ico-3.png") 0 center no-repeat; margin: 0 20px; margin: 0 14px\9;}
+		.refund-guarantee{background: url("images/ico-4.png") 0 center no-repeat;}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="close"><a id="ButtonClose" href="#"></a></div>
+		<div class="content">
+			<p class="h1">Glarysoft File Recovery Pro</p>
+			<ul class="introduce">
+				<li>No limit on file recovery.</li>
+				<li>Support more than the free edition.</li>
+			</ul>
+			<p class="line"></p>
+			<div class="choose">
+				<div class="choose-item">
+					<p class="h2">Annual License</p>
+					<p class="price">$&nbsp;<span>49</span>.95</p>
+					<a class="purchase-btn" href="#" onclick="OpenURL('https://order.glarysoft.com/order/checkout.php?PRODS=35504869&QTY=1&CART=1&CARD=1','')">Purchase Now</a>
+				</div>
+				<div class="choose-item mid">
+					<p class="h2">One Week</p>
+					<p class="price">$&nbsp;<span>19</span>.95</p>
+					<a class="purchase-btn" href="#" onclick="OpenURL('https://order.glarysoft.com/order/checkout.php?PRODS=35408920&QTY=1&CART=1&CARD=2','')">Purchase Now</a>
+					<img src="images/mark.png" />
+				</div>
+				<div class="choose-item">
+					<p class="h2">Lifetime License</p>
+					<p class="price">$&nbsp;<span>99</span>.95</p>
+					<a class="purchase-btn" href="#"  onclick="OpenURL('https://order.glarysoft.com/order/checkout.php?PRODS=35504979&QTY=1&CART=1&CARD=1','')">Purchase Now</a>
+				</div>
+			</div>
+			<div class="guarantee">
+				<div class="payment-guarantee">Secure Payment - We protect your privacy with advanced encryption technology.</div>
+				<div>
+					<p class="time-guarantee">Instant license delivery </p>
+					<p class="support-guarantee">24/7 online support</p>
+					<p class="refund-guarantee">30-day refund guarantee</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	$(function(){
+		$("#ButtonClose").mouseover(function () {
+			$(this).css("background",'url("images/close-hover.png") center center no-repeat');
+		}).mousedown(function () {
+			$(this).css("background",'url(./images/close-click.png) center center no-repeat');
+		}).mouseout(function () {
+			$(this).css("background",'url(./images/close-default.png) center center no-repeat');
+		})
+	})
+</script>
+</html>
