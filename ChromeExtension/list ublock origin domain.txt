@@ -273,11 +273,20 @@ no filtering:
   - help.mikrotik.com
   - hyperglass.dev
   - demo.dynamsoft.com
+  - www.nvidia.com
+  - my.radboox.com
+  - riznetbogarestu.bayarinternet.com
+  - 192.168.99.245
+  - 10.10.2.31
+  - 192.168.99.242
+  - 192.168.99.248
+  - 10.10.192.124
 basic:
   - all-urls
 optimal:
   - www.facebook.com
   - www.gsmarena.com
+  - pngtree.com
 complete:
   - movieku.fit
   - nomat.site
