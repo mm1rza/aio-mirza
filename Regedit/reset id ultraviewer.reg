@@ -1,0 +1,15 @@
+Windows Registry Editor Version 5.00
+
+; Deletes the "PreferID" value from UltraViewer settings for both 32-bit and 64-bit systems.
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\UltraViewer]
+"PreferID"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\UltraViewer]
+"PreferID"=-
+
+; Deletes the "UID" value from UltraViewer settings for both 32-bit and 64-bit systems.
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\UltraViewer]
+"UID"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\UltraViewer]
+"UID"=-
