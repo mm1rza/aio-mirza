@@ -4,14 +4,14 @@ REGEDIT4
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities]
 "Language"="english.lng"
-"Current View"=dword:00000000
+"Current View"=dword:00000003
 "ATCPageIndex"=dword:00000000
 "ATPageIndex"=dword:00000001
 "AutoRepair"=dword:00000000
 "AutoAction"=dword:00000000
 "Transparen"=dword:00000000
-"BootTime"="237048"
-"Update"=dword:69023c6f
+"BootTime"="18048"
+"Update"=dword:69855d1a
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\DockBar Tools]
 "ADT_SC_STARTUPI"=dword:00000000
@@ -77,14 +77,18 @@ REGEDIT4
 "List_Ser_Sys_Sort"=dword:00000003
 "List_Ser_Sys_Des"=dword:00000001
 "Detail_Open"=dword:00000001
+"List_Width_4"=dword:00000064
+"List_Width_5"=dword:00000064
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft]
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft\Glary Utilities]
-"RootDir"="D:\\Downloads\\Glary Utilities Pro 6.33.0.37.kuyhAa\\Glary Utilities Pro 6.33.0.37.kuyhAa\\GlaryUtilities\\App\\GlaryUtilities\\"
+"RootDir"="C:\\#mirza\\APPPortable\\GlaryUtilities\\App\\GlaryUtilities\\"
 "ChannelNo"="1000"
 "Date"="45959.9651157407"
 "Version"="6.33.0.37"
+"RegName"="PortableAppZ"
+"Regcode"="YM1C5H-0NRLS9-DYKRV5-2FYIW0-DAJBHQ"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft\Glary Utilities\RegisterInfo]
 "LicenseCode"="qM30QmYCQFfFRoqhUJGYm6FxiYRSgJKojPCKOhVs7NL91vRsYLD5/mPXj7AMGfm3DF4KCeT7vjzFFo79isCgtQ=="
