@@ -61,7 +61,7 @@ REGEDIT4
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\startup]
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\startup\WndStatus]
-"Tab_Index"=dword:00000004
+"Tab_Index"=dword:00000003
 "List_Width_0"=dword:00000104
 "List_Width_1"=dword:00000064
 "List_Width_2"=dword:00000064
