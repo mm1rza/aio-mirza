@@ -6032,4 +6032,5 @@
 		<Bottom>773</Bottom>
 	</AddNewScanDialogWindowPlacement.rcNormalPosition>
 	<ScanHistoryFile>C:\#mirza\APPPortable\TreeSize Portable\scanhistory.xml</ScanHistoryFile>
+	<ScanHistoryDatabase>C:\#mirza\APPPortable\TreeSize Portable\scanhistory.sqlite</ScanHistoryDatabase>
 </GlobalOptions>

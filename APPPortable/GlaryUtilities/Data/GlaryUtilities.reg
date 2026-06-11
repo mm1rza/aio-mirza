@@ -10,8 +10,81 @@ REGEDIT4
 "AutoRepair"=dword:00000000
 "AutoAction"=dword:00000000
 "Transparen"=dword:00000000
-"BootTime"="18048"
-"Update"=dword:69855d1a
+"BootTime"="41190"
+"Update"=dword:69d5d1f5
+"main_WndRect"=hex:07,02,00,00,aa,00,00,00,a9,05,00,00,18,03,00,00
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Disk Cleaner]
+"WndLeft"=dword:000001cc
+"WndTop"=dword:000000ba
+"WndWidth"=dword:000003e8
+"WndHeight"=dword:0000029a
+"AutoScan"=dword:00000001
+"DeleteTempFiles"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Disk Cleaner\CheckedType]
+"FileZilla"=dword:00000001
+"MPC-HC"=dword:00000001
+"SysUpdate"=dword:00000000
+"FontCache"=dword:00000000
+"OldPrefetch"=dword:00000000
+"IISLogFiles"=dword:00000000
+"DesktopShortcut"=dword:00000000
+"StartShortcut"=dword:00000000
+"Recycle"=dword:00000001
+"SysLogFiles"=dword:00000001
+"ErrorReprotin"=dword:00000001
+"MemoryDump"=dword:00000001
+"SysTemp"=dword:00000001
+"SysInstaller"=dword:00000001
+"SysDownLoad"=dword:00000000
+"RemoteDesktopCache"=dword:00000000
+"UserTemp"=dword:00000001
+"SnipSketch"=dword:00000001
+"Steam"=dword:00000001
+"Adobe Reader"=dword:00000001
+"wmplayer"=dword:00000001
+"InternetDownloadManager"=dword:00000000
+"HandBrake"=dword:00000000
+"VLCMediaPlayer"=dword:00000001
+"AdobeAir"=dword:00000001
+"GoogleEarth"=dword:00000001
+"TeamViewer"=dword:00000001
+"ACDSeeCache"=dword:00000000
+"RemoteDesktop"=dword:00000000
+"Java"=dword:00000000
+"EarthCache"=dword:00000000
+"MSOneDrive"=dword:00000001
+"K-LiteCodecPackFull"=dword:00000001
+"GoogleChromeCache"=dword:00000001
+"MozillaFirefoxCache"=dword:00000001
+"IECache"=dword:00000001
+"BraveCache"=dword:00000001
+"MicrosoftEdgeCache"=dword:00000001
+"ExplorerThumCache"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Disk Cleaner\Exclude]
+"?:\\program files\\common files"=dword:00000001
+"?:\\program files\\uninstall information"=dword:00000001
+"?:\\win*\\security"=dword:00000001
+"*\\sendto"=dword:00000001
+"*\\i386"=dword:00000001
+"*\\resources\\themes"=dword:00000001
+"*\\temporary internet files"=dword:00000001
+"*\\microsoft\\office\\data"=dword:00000001
+"*\\microsoft\\money\\*\\webcache"=dword:00000001
+"*\\chaos32"=dword:00000001
+"*\\paprport\\data"=dword:00000001
+"*\\symantec shared\\virusdefs"=dword:00000001
+"?:\\system volume information"=dword:00000001
+"?:\\_restore"=dword:00000001
+"?:\\recycle?"=dword:00000001
+"*\\temp\\incredimail"=dword:00000001
+"*\\norton antivirus\\quarantine"=dword:00000001
+"*\\system32\\usmt"=dword:00000001
+"*\\system32\\catroot2"=dword:00000001
+"*\\application data\\microsoft"=dword:00000001
+"*\\application data\\aim"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\DockBar Tools]
 "ADT_SC_STARTUPI"=dword:00000000
@@ -26,6 +99,28 @@ REGEDIT4
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\OneClick]
 "DeepClean"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\OneClick\Selected]
+"OC_CLEANREG"=dword:00000001
+"OC_REMOVEBS"=dword:00000001
+"OC_DISKR"=dword:00000000
+"OC_ERASEPT"=dword:00000000
+"OC_REMOVETF"=dword:00000001
+"OC_OPTIMIZESA"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\OneClick\Selected\DiskCleanerN]
+"FireFoxCache"=dword:00000001
+"SysUpdate"=dword:00000000
+"OldPrefetch"=dword:00000000
+"ErrorReprotin"=dword:00000001
+"SysLogFiles"=dword:00000001
+"MemoryDump"=dword:00000001
+"Recycle"=dword:00000001
+"SysTemp"=dword:00000001
+"SysInstaller"=dword:00000001
+"UserTemp"=dword:00000001
+"IECache"=dword:00000001
+"ExplorerThumCache"=dword:00000001
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Settings]
 "BackupsMax"=dword:0000003c
@@ -42,6 +137,7 @@ REGEDIT4
 "SaveLog"=dword:00000000
 "ShowQuicklaunchTips"=dword:00000000
 "Auto1ClickCare"=dword:00000000
+"DeleteOlderTempFile"=dword:00000000
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\Settings\ContextMenu]
 "Analyze Diskspace"=dword:00000000
@@ -61,15 +157,15 @@ REGEDIT4
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\startup]
 
 [HKEY_CURRENT_USER\Software\GlarySoft\Glary Utilities\startup\WndStatus]
-"Tab_Index"=dword:00000003
+"Tab_Index"=dword:00000004
 "List_Width_0"=dword:00000104
 "List_Width_1"=dword:00000064
 "List_Width_2"=dword:00000064
 "List_Width_3"=dword:00000064
 "List_Sys_Sort"=dword:00000003
 "List_Sys_Des"=dword:00000001
-"List_Scheduled_Sort"=dword:00000003
-"List_Scheduled_Des"=dword:00000001
+"List_Scheduled_Sort"=dword:00000000
+"List_Scheduled_Des"=dword:00000000
 "List_Plus_Sort"=dword:00000000
 "List_Plus_Des"=dword:00000000
 "List_Ser_App_Sort"=dword:00000003
@@ -79,6 +175,7 @@ REGEDIT4
 "Detail_Open"=dword:00000001
 "List_Width_4"=dword:00000064
 "List_Width_5"=dword:00000064
+"StartupManager_WndRect"=hex:9f,02,00,00,dc,00,00,00,87,06,00,00,76,03,00,00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\GlarySoft]
 
