@@ -44,23 +44,34 @@ Berikut adalah alur kerja teknis langkah demi langkah dari `update.ps1`:
 
 ```mermaid
 flowchart TD
-    A[Jalankan update.ps1] --> B[Baca Versi Lokal di C:\\#mirza\\#updateallfiles\\version.txt]
-    B --> C[Ambil Versi Remote dari GitHub Raw]
-    C --> D{Versi Lokal == Versi Cloud?}
-    D -- Ya --> E[Tanya Konfirmasi: Paksa Update? Y/N]
-    E -- Tidak --> F[Batalkan & Keluar]
-    E -- Ya --> G[Hapus Direktori Lama C:\\#mirza]
-    D -- Tidak --> G
-    G --> H[Unduh main.zip dari GitHub ke C:\\#mirza\\aio-mirza.zip]
-    H --> I[Ekstrak ZIP ke C:\\#mirza]
-    I --> J[Hapus File ZIP Sementara]
-    J --> K[Pindahkan Isi aio-mirza-main ke C:\\#mirza]
-    K --> L[Hapus Folder aio-mirza-main]
-    L --> M[Pembersihan Berkas Non-Wajib: README.md, .gitattributes]
-    M --> N[Update Selesai & Siap Digunakan]
+    A[Jalankan update.ps1] --> B[Deteksi Koneksi Internet]
+    B -->|Tidak Ada Internet| C[Menunggu Koneksi / Jendela Tetap Terbuka]
+    C -->|Koneksi Tersambung| D[Baca Versi Lokal di C:\\#mirza\\#updateallfiles\\version.txt]
+    B -->|Ada Internet| D
+    D --> E[Ambil Versi Remote dari GitHub Raw]
+    E --> F{Versi Lokal == Versi Cloud?}
+    F -- Ya --> G[Tanya Konfirmasi: Paksa Update? Y/N]
+    G -- Tidak --> H[Tahan Jendela & Keluar]
+    G -- Ya --> I[Hapus Direktori Lama C:\\#mirza]
+    F -- Tidak --> I
+    I --> J[Unduh main.zip dari GitHub ke C:\\#mirza\\aio-mirza.zip]
+    J --> K[Ekstrak ZIP ke C:\\#mirza]
+    K --> L[Hapus File ZIP Sementara]
+    L --> M[Pindahkan Isi aio-mirza-main ke C:\\#mirza]
+    M --> N[Hapus Folder aio-mirza-main]
+    N --> O[Pembersihan Berkas Non-Wajib: README.md, .gitattributes]
+    O --> P[Update Selesai & Tahan Jendela Konfirmasi]
 ```
 
-### 1. Pengecekan Versi (Version Control)
+### 1. Deteksi Internet Otomatis & Anti Auto-Close (`Wait-ForInternet`)
+* Skrip dilengkapi fungsi `Test-Internet` dan `Wait-ForInternet` untuk memastikan ada akses ke GitHub sebelum melakukan *request*.
+* **Jika komputer belum tersambung ke internet (LAN/Wi-Fi lepas):**
+  * Jendela terminal **TIDAK akan langsung menutup (*force close*)** atau error *crash*.
+  * Skrip menampilkan peringatan ramah dan melakukan *looping check* setiap 3 detik sembari menunggu pengguna mencolokkan kabel LAN atau mengaktifkan Wi-Fi.
+  * Begitu internet terhubung, proses update otomatis langsung berlanjut.
+  * Terdapat jeda `Read-Host "Tekan Enter..."` di setiap titik keluar (selesai / pembatalan) agar teknisi sempat membaca status layar tanpa jendela tiba-tiba hilang.
+
+### 2. Pengecekan Versi (Version Control)
 * Skrip membaca berkas versi lokal di:
   ```powershell
   $localVersionFile = "C:\#mirza\#updateallfiles\version.txt"
@@ -73,7 +84,7 @@ flowchart TD
   * **Jika versi sama**: Komputer sudah memiliki berkas terbaru. Pengguna diberi opsi konfirmasi apakah ingin melakukan *force update* (`Y/N`).
   * **Jika versi berbeda atau berkas lokal belum ada**: Proses pembaruan berkas otomatis dilanjutkan.
 
-### 2. Reset dan Pembersihan Folder Lama
+### 3. Reset dan Pembersihan Folder Lama
 Untuk mencegah terjadinya konflik berkas lama, file korup, atau *leftover files* yang sudah dihapus di repositori terbaru, skrip menghapus direktori lama secara tuntas:
 ```powershell
 if (Test-Path $folder) {
@@ -81,7 +92,7 @@ if (Test-Path $folder) {
 }
 ```
 
-### 3. Pengunduhan Arsip Terbaru dari GitHub
+### 4. Pengunduhan Arsip Terbaru dari GitHub
 Skrip membuat folder baru `C:\#mirza` dan mengunduh seluruh *branch* utama dalam format ZIP:
 ```powershell
 $downloadUrl = "https://github.com/mm1rza/aio-mirza/archive/refs/heads/main.zip"
@@ -89,12 +100,12 @@ $zipFilePath = "C:\#mirza\aio-mirza.zip"
 $wc.DownloadFile($downloadUrl, $zipFilePath)
 ```
 
-### 4. Ekstraksi dan Restrukturisasi Berkas
+### 5. Ekstraksi dan Restrukturisasi Berkas
 * Berkas `.zip` diekstrak menggunakan cmdlet `Expand-Archive`.
 * Karena GitHub secara otomatis membungkus hasil ekstraksi ZIP ke dalam subfolder bernama `<nama-repo>-<branch>` (yaitu `aio-mirza-main`), skrip melakukan iterasi untuk memindahkan seluruh isi folder tersebut naik 1 tingkat ke `C:\#mirza`.
 * Folder sementara `aio-mirza-main` dan berkas `aio-mirza.zip` langsung dihapus untuk menghemat ruang penyimpanan.
 
-### 5. Pembersihan Berkas Non-Esensial di Komputer Klien
+### 6. Pembersihan Berkas Non-Esensial di Komputer Klien
 Setelah pemindahan selesai, skrip melakukan sanitasi akhir dengan menghapus berkas dokumentasi repo yang tidak diperlukan oleh pengguna teknisi di lingkungan lokal:
 * `C:\#mirza\README.md`
 * `C:\#mirza\.gitattributes`
