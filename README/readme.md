@@ -78,7 +78,7 @@ Program diakses secara praktis melalui PowerShell dengan satu perintah:
 iex (iwr "https://mnet.my.id/update/github/aio" -UseBasicParsing)
 ```
 
-Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 3 menu utama:
+Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 4 menu utama:
 
 1. **Aktivasi Windows dan Office**  
    Mengeksekusi skrip aktivasi otomatis resmi Microsoft Activation Scripts (MAS) via `irm https://get.activated.win | iex`.
@@ -86,6 +86,8 @@ Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 3 
    Mengunduh dan memasang patch BlockTheSpot untuk Spotify versi desktop.
 3. **Download dan Ekstrak File mm1rza ke `C:\#mirza`**  
    Menjalankan skrip updater (`update.ps1`) dengan hak akses Administrator (*Elevated RunAs*).
+4. **Extension Browser (IPvFoo & TikTok HD Extension)**  
+   Mengunduh repositori ekstensi peramban dari `https://github.com/mm1rza/ipvfoo` dan `https://github.com/mm1rza/tiktok-hd-extension` lalu memasangnya ke `C:\#mirza\ChromeExtension` dengan mode wajib ganti (*force replace*).
 
 ---
 
