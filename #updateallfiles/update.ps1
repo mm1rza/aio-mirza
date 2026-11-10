@@ -278,7 +278,25 @@ $workerScript = {
                         [System.Threading.Monitor]::Exit($s)
                     }
 
-                    $logs.Enqueue("[$cur/$($s.Total)] ($fileSizeStr) $($it.Path)... [OK]")
+                    $logs.Enqueue("[$cur/$($s.Total) OK] ($fileSizeStr) $($it.Path)")
+                } elseif ($downloadedSize -gt 0) {
+                    # Jika ukuran berbeda (misal file teks CRLF vs LF di GitHub), tetap simpan file hasil unduhan
+                    if (Test-Path $localFilePath) {
+                        Remove-Item $localFilePath -Force
+                    }
+                    Move-Item -Path $tempFile -Destination $localFilePath -Force
+                    $downloadSuccess = $true
+
+                    $cur = 0
+                    [System.Threading.Monitor]::Enter($s)
+                    try {
+                        $s.Done++
+                        $cur = $s.Done
+                    } finally {
+                        [System.Threading.Monitor]::Exit($s)
+                    }
+
+                    $logs.Enqueue("[$cur/$($s.Total) DIF] ($fileSizeStr) $($it.Path)")
                 } else {
                     $corruptRetry++
                     Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
@@ -291,7 +309,7 @@ $workerScript = {
                         } finally {
                             [System.Threading.Monitor]::Exit($s)
                         }
-                        $logs.Enqueue("[$cur/$($s.Total)] ($fileSizeStr) $($it.Path)... [Dilewati (Ukuran remote berbeda)]")
+                        $logs.Enqueue("[$cur/$($s.Total) ERR] ($fileSizeStr) $($it.Path)")
                         break
                     } else {
                         Start-Sleep -Seconds 1
@@ -317,10 +335,12 @@ $workers = @()
 while (($workers | Where-Object { -not $_.Handle.IsCompleted }).Count -gt 0) {
     $msg = $null
     while ($logQueue.TryDequeue([ref]$msg)) {
-        if ($msg -like "*[OK]*") {
+        if ($msg -like "* OK]*") {
             Write-Host $msg -ForegroundColor White
-        } else {
+        } elseif ($msg -like "* DIF]*") {
             Write-Host $msg -ForegroundColor Yellow
+        } else {
+            Write-Host $msg -ForegroundColor Red
         }
     }
     Start-Sleep -Milliseconds 40
@@ -329,10 +349,12 @@ while (($workers | Where-Object { -not $_.Handle.IsCompleted }).Count -gt 0) {
 # Kuras sisa antrean log
 $msg = $null
 while ($logQueue.TryDequeue([ref]$msg)) {
-    if ($msg -like "*[OK]*") {
+    if ($msg -like "* OK]*") {
         Write-Host $msg -ForegroundColor White
-    } else {
+    } elseif ($msg -like "* DIF]*") {
         Write-Host $msg -ForegroundColor Yellow
+    } else {
+        Write-Host $msg -ForegroundColor Red
     }
 }
 
