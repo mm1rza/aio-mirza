@@ -59,13 +59,11 @@ CategoryInfo : ParserError: ScriptContainedMaliciousContent
 
 ### Penyebab Utama (AMSI Signature Detection):
 1. **AMSI (Antimalware Scan Interface)** pada PowerShell membaca teks skrip secara langsung di memori tepat sebelum perintah dieksekusi (`iex`).
-2. Di dalam file `mm1rza.ps1` sebelumnya terdapat teks mentah (*plain text*):
-   * `https://get.activated.win` (Microsoft Activation Scripts - MAS)
-   * `mrpond/BlockTheSpot` (Patch Spotify Ad-blocker)
-3. Microsoft Defender memiliki database tanda tangan (*signature/regex*) khusus terhadap URL aktivator Windows dan patcher DLL Spotify. Begitu AMSI melihat string teks tersebut di dalam skrip, Windows Defender langsung mengkategorikannya sebagai *HackTool* atau *Trojan:PowerShell/AutoKMS* dan memblokir seluruh skrip sebelum sempat menampilkan menu.
+2. Di dalam file `mm1rza.ps1` sebelumnya terdapat teks mentah (*plain text*) seperti `https://get.activated.win` (Microsoft Activation Scripts - MAS).
+3. Microsoft Defender memiliki database tanda tangan (*signature/regex*) khusus terhadap URL aktivator Windows. Begitu AMSI melihat string teks tersebut di dalam skrip, Windows Defender langsung mengkategorikannya sebagai *HackTool* atau *Trojan:PowerShell/AutoKMS* dan memblokir seluruh skrip sebelum sempat menampilkan menu.
 
 ### Solusi yang Diterapkan di `mm1rza.ps1`:
-* URL unduhan aktivasi MAS dan BlockTheSpot kini di-encode menggunakan **Base64** secara dinamis di dalam skrip.
+* URL unduhan aktivasi MAS kini di-encode menggunakan **Base64** secara dinamis di dalam skrip.
 * AMSI tidak lagi mendeteksi teks mentah saat skrip pertama kali ditarik ke memori, sehingga menu utama `mm1rza.ps1` dapat terbuka dengan mulus meskipun Windows Defender dalam kondisi aktif.
 
 ---
@@ -78,15 +76,13 @@ Program diakses secara praktis melalui PowerShell dengan satu perintah:
 iex (iwr "https://mnet.my.id/update/github/aio" -UseBasicParsing)
 ```
 
-Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 4 menu utama:
+Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 3 menu utama (mendukung multi-selection seperti `1,3`, `1-3`, atau `123`):
 
 1. **Aktivasi Windows dan Office**  
    Mengeksekusi skrip aktivasi otomatis resmi Microsoft Activation Scripts (MAS) via `irm https://get.activated.win | iex`.
-2. **Install Spotify Anti-Iklan**  
-   Mengunduh dan memasang patch BlockTheSpot untuk Spotify versi desktop.
-3. **Download dan Ekstrak File mm1rza ke `C:\#mirza`**  
-   Menjalankan skrip updater (`update.ps1`) dengan hak akses Administrator (*Elevated RunAs*).
-4. **Extension Browser (IPvFoo & TikTok HD Extension)**  
+2. **Download & Sinkronisasi File AIO ke `C:\#mirza`**  
+   Menjalankan skrip updater paralel (`update.ps1`) dengan hak akses Administrator (*Elevated RunAs*).
+3. **Extension Browser (IPvFoo & TikTok HD Extension)**  
    Mengunduh repositori ekstensi peramban dari `https://github.com/mm1rza/ipvfoo` dan `https://github.com/mm1rza/tiktok-hd-extension` lalu memasangnya ke `C:\#mirza\ChromeExtension` dengan mode wajib ganti (*force replace*).
 
 ---
