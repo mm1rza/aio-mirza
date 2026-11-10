@@ -10,7 +10,8 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls
 
 $targetDir    = "C:\#mirza"
-$manifestUrl  = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/manifest.json"
+$cacheBust    = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
+$manifestUrl  = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/manifest.json?t=$cacheBust"
 
 # Otomatis deteksi CPU & tentukan thread optimal (minimal 8, maksimal 16)
 $cpuCores     = [Environment]::ProcessorCount
