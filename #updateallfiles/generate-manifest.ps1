@@ -1,8 +1,10 @@
-# Skrip Generator Manifest untuk AIO Mirza
-# Dijalankan oleh pengembang / maintainer sebelum commit & push ke GitHub
+# ==============================================================================
+#  AIO MIRZA - MANIFEST & VERSION GENERATOR (MAINTAINER TOOL)
+#  Dijalankan oleh pengembang / maintainer sebelum commit & push ke GitHub
+# ==============================================================================
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "  AIO Mirza - Manifest & Version Generator" -ForegroundColor Cyan
+Write-Host "  AIO Mirza - Unified Manifest & Version Generator" -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -23,9 +25,9 @@ $allFiles = Get-ChildItem -Path $rootDir -Recurse -File | Where-Object {
     return $true
 }
 
-Write-Host "Ditemukan $($allFiles.Count) berkas valid (README & Git dilewati). Menghitung MD5 Hash..." -ForegroundColor Yellow
+Write-Host "Ditemukan $($allFiles.Count) berkas valid. Menghitung MD5 Hash..." -ForegroundColor Yellow
 
-$manifest = foreach ($f in $allFiles) {
+$fileList = foreach ($f in $allFiles) {
     $relPath = $f.FullName.Substring($rootDir.Length + 1).Replace('\', '/')
     [PSCustomObject]@{
         Path = $relPath
@@ -36,30 +38,40 @@ $manifest = foreach ($f in $allFiles) {
 
 $sw.Stop()
 
-# Simpan manifest.json
-$manifestPath = Join-Path $scriptDir "manifest.json"
-$manifest | ConvertTo-Json -Compress | Set-Content -Path $manifestPath -Encoding UTF8 -Force
-
-# Perbarui version.txt dengan timestamp build saat ini
-$versionPath = Join-Path $scriptDir "version.txt"
 $newVersion = (Get-Date).ToString("yyyyMMdd.HHmm")
-$newVersion | Set-Content -Path $versionPath -NoNewline -Encoding UTF8 -Force
-
-$totalBytes = ($manifest | Measure-Object -Property Size -Sum).Sum
+$totalBytes = ($fileList | Measure-Object -Property Size -Sum).Sum
 $totalMB = [math]::Round($totalBytes / 1MB, 2)
+
+# Susun objek gabungan (Versi + Daftar Berkas)
+$unifiedManifest = [PSCustomObject]@{
+    version     = $newVersion
+    generatedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+    totalFiles  = $fileList.Count
+    totalBytes  = $totalBytes
+    files       = $fileList
+}
+
+# 1. Simpan manifest.json utama (gabungan)
+$manifestPath = Join-Path $scriptDir "manifest.json"
+$unifiedManifest | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $manifestPath -Encoding UTF8 -Force
+
+# 2. Simpan version.txt sebagai cadangan (backward compatibility untuk autounattend.xml)
+$versionPath = Join-Path $scriptDir "version.txt"
+$newVersion | Set-Content -Path $versionPath -NoNewline -Encoding UTF8 -Force
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host " Manifest berhasil dibuat!" -ForegroundColor Green
+Write-Host " Manifest & Versi Berhasil Digabungkan!" -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host " Total Berkas : $($manifest.Count)" -ForegroundColor White
+Write-Host " Versi Rilis  : $newVersion" -ForegroundColor White
+Write-Host " Total Berkas : $($fileList.Count)" -ForegroundColor White
 Write-Host " Total Ukuran : $totalMB MB" -ForegroundColor White
-Write-Host " Versi Baru   : $newVersion" -ForegroundColor White
 Write-Host " Waktu Proses : $([math]::Round($sw.Elapsed.TotalSeconds, 2)) detik" -ForegroundColor White
-Write-Host " Berkas       : $manifestPath" -ForegroundColor Gray
+Write-Host " Berkas Utama : $manifestPath (Berisi versi & file)" -ForegroundColor Gray
+Write-Host " Berkas Cadang: $versionPath (Kompatibilitas installer)" -ForegroundColor Gray
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host "Silakan lakukan commit & push ke GitHub:" -ForegroundColor Yellow
 Write-Host "  git add ." -ForegroundColor Gray
-Write-Host "  git commit -m 'Release version $newVersion'" -ForegroundColor Gray
+Write-Host "  git commit -m 'Rilis versi $newVersion'" -ForegroundColor Gray
 Write-Host "  git push origin main" -ForegroundColor Gray
 Write-Host ""
