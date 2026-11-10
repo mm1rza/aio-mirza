@@ -10,3 +10,7 @@ iex (iwr "https://mnet.my.id/update/github/aio" -UseBasicParsing)
 ## Tutorial Videos
 ![Tutorial](https://raw.githubusercontent.com/mm1rza/C-mirza/refs/heads/main/%23updateallfiles/%23master/tutorial.gif)
 </br>
+
+## Documentation
+Dokumentasi teknis lengkap dan panduan sistem update: [README/readme.md](README/readme.md)
+

@@ -17,6 +17,24 @@ Seluruh *shortcut* (`.lnk`) pada *root* direktori telah diarahkan secara spesifi
 
 ---
 
+## ⚠️ PENTING: Dua Berkas Utama Proyek (Terkoneksi ke Windows Installer)
+
+Proyek ini memiliki **2 berkas inti yang telah diintegrasikan langsung ke dalam custom Windows Installer (Setup / Unattended Windows)**:
+
+| Path Berkas Wajib | Peran & Fungsi dalam Windows Installer |
+| :--- | :--- |
+| **`#updateallfiles\update.ps1`** | Skrip *deployment* dan sinkronisasi otomatis untuk menarik dan memperbarui seluruh ekosistem AIO Mirza langsung dari GitHub. |
+| **`Regedit\allinout.reg`** | Berkas registri induk pasca-install (mengatur *AutoEndTasks*, restorasi Windows Photo Viewer klasik, optimasi *sharing printer* RPC, pembersihan folder 3D Objects & OneDrive, dan tweak sistem lainnya). |
+
+> [!CAUTION]
+> ### ATURAN NAMA & PATH BERKAS:
+> - **NAMA DAN PATH DUA BERKAS DI ATAS TIDAK BOLEH DIRUBAH SAMA SEKALI!**  
+>   Path `#updateallfiles\update.ps1` dan `Regedit\allinout.reg` sudah tertanam permanen di dalam sistem installer Windows. Jika nama file atau foldernya diubah, proses instalasi Windows otomatis akan putus (*error / missing file*).
+> - **ISI/KONTEN BERKAS BEBAS DIUBAH:**  
+>   Anda bebas memperbarui logika, menambah tweak registry baru, atau memodifikasi skrip di dalam kedua berkas tersebut kapan saja. Yang wajib dijaga adalah **nama berkas dan lokasi foldernya harus tetap sama**.
+
+---
+
 ## 🚀 Cara Menjalankan & Menu Peluncur (Launcher)
 
 Program diakses secara praktis melalui PowerShell dengan satu perintah:

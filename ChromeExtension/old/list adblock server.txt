@@ -1,5 +1,0 @@
-https://easylist.to/
-
-
-https://raw.githubusercontent.com/easylist/easylist/refs/heads/master/fanboy-cookie.template
-
