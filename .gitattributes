@@ -1,0 +1,3 @@
+# Pertahankan isi berkas apa adanya byte-per-byte (cegah Git mengubah CRLF Windows ke LF Linux)
+* -text
+

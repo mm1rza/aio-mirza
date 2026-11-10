@@ -1,10 +1,10 @@
 # ==============================================================================
-#  AIO MIRZA - MANIFEST & VERSION GENERATOR (MAINTAINER TOOL)
+#  AIO MIRZA - PURE MANIFEST GENERATOR (BY HASH & SIZE)
 #  Dijalankan oleh pengembang / maintainer sebelum commit & push ke GitHub
 # ==============================================================================
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "  AIO Mirza - Unified Manifest & Version Generator" -ForegroundColor Cyan
+Write-Host "         AIO Mirza - Pure Manifest Generator (Hash)       " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -15,7 +15,7 @@ $sw = [System.Diagnostics.Stopwatch]::StartNew()
 
 $allFiles = Get-ChildItem -Path $rootDir -Recurse -File | Where-Object {
     $rel = $_.FullName.Substring($rootDir.Length + 1).Replace('\', '/')
-    # Abaikan berkas dokumentasi, git, dan manifest generator
+    # Abaikan berkas dokumentasi, git, dan manifest
     if ($rel -match '^(README\.md|README/|\.git/|\.gitattributes|\.gitignore|#updateallfiles/manifest\.json)' -or 
         $_.Name -eq 'README.md' -or 
         $_.Name -eq '.gitattributes' -or 
@@ -27,7 +27,7 @@ $allFiles = Get-ChildItem -Path $rootDir -Recurse -File | Where-Object {
 
 Write-Host "Ditemukan $($allFiles.Count) berkas valid. Menghitung MD5 Hash..." -ForegroundColor Yellow
 
-$fileList = foreach ($f in $allFiles) {
+$manifest = foreach ($f in $allFiles) {
     $relPath = $f.FullName.Substring($rootDir.Length + 1).Replace('\', '/')
     [PSCustomObject]@{
         Path = $relPath
@@ -38,35 +38,24 @@ $fileList = foreach ($f in $allFiles) {
 
 $sw.Stop()
 
-$newVersion = (Get-Date).ToString("yyyyMMdd.HHmm")
-$totalBytes = ($fileList | Measure-Object -Property Size -Sum).Sum
+$totalBytes = ($manifest | Measure-Object -Property Size -Sum).Sum
 $totalMB = [math]::Round($totalBytes / 1MB, 2)
 
-# Susun objek gabungan (Versi + Daftar Berkas)
-$unifiedManifest = [PSCustomObject]@{
-    version     = $newVersion
-    generatedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
-    totalFiles  = $fileList.Count
-    totalBytes  = $totalBytes
-    files       = $fileList
-}
-
-# Simpan manifest.json utama (gabungan versi + berkas)
+# Simpan manifest murni (Array berkas, ukuran, dan hash saja)
 $manifestPath = Join-Path $scriptDir "manifest.json"
-$unifiedManifest | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $manifestPath -Encoding UTF8 -Force
+$manifest | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $manifestPath -Encoding UTF8 -Force
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host " Manifest & Versi Berhasil Dibuat!" -ForegroundColor Green
+Write-Host " Manifest Murni Berhasil Dibuat!" -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host " Versi Rilis  : $newVersion" -ForegroundColor White
-Write-Host " Total Berkas : $($fileList.Count)" -ForegroundColor White
+Write-Host " Total Berkas : $($manifest.Count)" -ForegroundColor White
 Write-Host " Total Ukuran : $totalMB MB" -ForegroundColor White
 Write-Host " Waktu Proses : $([math]::Round($sw.Elapsed.TotalSeconds, 2)) detik" -ForegroundColor White
 Write-Host " Berkas       : $manifestPath" -ForegroundColor Gray
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host "Silakan lakukan commit & push ke GitHub:" -ForegroundColor Yellow
 Write-Host "  git add ." -ForegroundColor Gray
-Write-Host "  git commit -m 'Rilis versi $newVersion'" -ForegroundColor Gray
+Write-Host "  git commit -m 'Update manifest by hash'" -ForegroundColor Gray
 Write-Host "  git push origin main" -ForegroundColor Gray
 Write-Host ""

@@ -179,7 +179,7 @@ Berikut ringkasan isi folder di dalam repositori:
 
 | Folder / Berkas | Fungsi dan Kegunaan |
 | :--- | :--- |
-| **`#updateallfiles/`** | Modul auto-update: berisi `update.ps1`, `manifest.json` (format terpadu: versi + index berkas & hash), `generate-manifest.ps1` (generator manifest otomatis), serta skrip peluncur utama di subfolder `#master`. |
+| **`#updateallfiles/`** | Modul auto-update: berisi `update.ps1`, `manifest.json` (index murni: path berkas, ukuran & hash MD5), `generate-manifest.ps1` (generator manifest otomatis), serta skrip peluncur utama di subfolder `#master`. |
 | **`@TEKNISI/`** | Berisi paket alat diagnosis teknisi: Antivirus, Hard Disk test, Partitioning, Data Recovery, System Info, dan Password reset. |
 | **`APPPortable/`** | Kumpulan *software portable* siap pakai (CPU-Z, GPU-Z, HD Sentinel, HWiNFO, HWMonitor, PuTTY, TrafficMonitor, TreeSize, WinBox Mikrotik, FanControl, dll). |
 | **`ChromeExtension/`** | Daftar domain pemblokir iklan (uBlock Origin) dan ekstensi pendukung peramban. |

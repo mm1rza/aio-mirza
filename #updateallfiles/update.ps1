@@ -1,8 +1,7 @@
 # ==============================================================================
 #  AIO MIRZA - AUTO UPDATER & INCREMENTAL MULTITHREADED SYNC (GITHUB)
-#  - Mengunduh berkas satu per satu secara PARALEL (Multithreading 8 Thread)
-#  - Memeriksa perubahan berkas (Hanya mengunduh file yang baru/berubah)
-#  - Menggunakan manifest.json terpadu (Versi & Daftar Berkas dalam 1 File)
+#  - Mengunduh berkas satu per satu secara PARALEL (Multithreading 8-16 Thread)
+#  - Sinkronisasi murni berdasarkan hash MD5 & ukuran berkas (Manifest by Hash)
 #  - Aman dari putus koneksi (Jika internet mati, menunggu dan melanjutkan sisa)
 # ==============================================================================
 
@@ -68,7 +67,7 @@ function Format-FileSize {
 
 Clear-Host
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "     AIO MIRZA - SMART PARALLEL UPDATER (MULTITHREAD)     " -ForegroundColor Cyan
+Write-Host "                    AIO MIRZA - UPDATER                   " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "Direktori Target : $targetDir" -ForegroundColor White
 Write-Host "Deteksi Sistem   : $cpuCores CPU Threads -> Dialokasikan $threadCount Thread Paralel" -ForegroundColor Gray
@@ -79,8 +78,8 @@ if (-not (Test-Path $targetDir)) {
     New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
 }
 
-# 1. Unduh manifest.json terpadu dari GitHub
-Write-Host "Memeriksa manifest & versi terbaru dari GitHub..." -ForegroundColor Yellow
+# 1. Unduh manifest.json dari GitHub
+Write-Host "Memeriksa manifest terbaru dari GitHub..." -ForegroundColor Yellow
 Wait-ForInternet -targetUrl $manifestUrl
 
 $remoteData = $null
@@ -95,44 +94,23 @@ while ($null -eq $remoteData) {
     }
 }
 
-# Dukung format baru (objek ber-versi) atau format lama (array berkas)
-if ($remoteData.PSObject.Properties['version']) {
-    $remoteVersion = $remoteData.version
-    $remoteFiles   = $remoteData.files
+# Dukung array murni maupun format objek
+if ($remoteData.PSObject.Properties['files']) {
+    $remoteFiles = $remoteData.files
 } else {
-    $remoteVersion = "Cloud"
-    $remoteFiles   = $remoteData
+    $remoteFiles = $remoteData
 }
 
-Write-Host "Versi di Cloud   : $remoteVersion ($($remoteFiles.Count) berkas terdaftar)." -ForegroundColor Green
+Write-Host "Manifest berhasil dimuat ($($remoteFiles.Count) berkas terdaftar)." -ForegroundColor Green
 
-# 2. Cek versi lokal
-$localManifestFile = Join-Path $targetDir "#updateallfiles\manifest.json"
-$localVersion = $null
-
-if (Test-Path $localManifestFile) {
-    try {
-        $localData = Get-Content $localManifestFile -Raw | ConvertFrom-Json
-        if ($localData.PSObject.Properties['version']) {
-            $localVersion = $localData.version
-        }
-    } catch {}
-}
-
-if ($localVersion) {
-    Write-Host "Versi di Komputer: $localVersion" -ForegroundColor White
-} else {
-    Write-Host "Versi di Komputer: Belum terpasang (Instalasi Baru)" -ForegroundColor Gray
-}
-
-# 3. Pindai berkas lokal dan bandingkan (Hanya tandai yang berbeda/belum ada)
+# 2. Pindai berkas lokal dan bandingkan murni by Hash & Size
 Write-Host "Menganalisis berkas lokal di $targetDir..." -ForegroundColor Yellow
 
 $needsDownload = New-Object System.Collections.Generic.List[PSObject]
 $alreadyUpToDate = 0
 
 foreach ($item in $remoteFiles) {
-    # Lewati berkas dokumentasi & git jika masih tercantum di manifest cloud
+    # Lewati berkas dokumentasi & git jika ada
     if ($item.Path -eq 'README.md' -or 
         $item.Path -like 'README/*' -or 
         $item.Path -like '.git*' -or 
@@ -161,11 +139,11 @@ foreach ($item in $remoteFiles) {
 
 Write-Host "Status Analisis  : $alreadyUpToDate berkas sudah cocok (Up-to-Date)." -ForegroundColor Green
 
-# 4. Jika semua berkas sudah cocok
+# 3. Jika semua berkas sudah cocok
 if ($needsDownload.Count -eq 0) {
     Write-Host ""
     Write-Host "==========================================================" -ForegroundColor Green
-    Write-Host " Semua berkas di $targetDir sudah versi TERBARU!" -ForegroundColor Green
+    Write-Host " Semua berkas di $targetDir sudah cocok (Up-to-Date)!" -ForegroundColor Green
     Write-Host " Tidak ada berkas yang perlu diunduh." -ForegroundColor Green
     Write-Host "==========================================================" -ForegroundColor Green
     
@@ -174,12 +152,12 @@ if ($needsDownload.Count -eq 0) {
         $needsDownload.AddRange($remoteFiles)
     } else {
         Write-Host ""
-        Read-Host "Tekan Enter untuk menutup jendela..."
+        Start-Sleep -Seconds 1
         exit
     }
 }
 
-# 5. Hitung total data yang perlu diunduh
+# 4. Hitung total data yang perlu diunduh
 $totalBytes = ($needsDownload | Measure-Object -Property Size -Sum).Sum
 $totalSizeStr = Format-FileSize -Bytes $totalBytes
 
@@ -191,7 +169,7 @@ Write-Host " Kecepatan Unduh          : Multithread Paralel ($threadCount Thread
 Write-Host "----------------------------------------------------------" -ForegroundColor Yellow
 Write-Host ""
 
-# 6. Unduh berkas secara paralel menggunakan RunspacePool
+# 5. Unduh berkas secara paralel menggunakan RunspacePool
 $sw = [System.Diagnostics.Stopwatch]::StartNew()
 
 $queue = New-Object 'System.Collections.Concurrent.ConcurrentQueue[psobject]'
@@ -281,7 +259,7 @@ $workerScript = {
 
                     $logs.Enqueue("[$cur/$($s.Total) OK] ($fileSizeStr) $($it.Path)")
                 } elseif ($downloadedSize -gt 0) {
-                    # Jika ukuran berbeda (misal file teks CRLF vs LF di GitHub), tetap simpan file hasil unduhan
+                    # Jika ukuran berbeda (misal text file CRLF vs LF di GitHub), tetap simpan file hasil unduhan
                     if (Test-Path $localFilePath) {
                         Remove-Item $localFilePath -Force
                     }
@@ -369,7 +347,7 @@ $pool.Dispose()
 $sw.Stop()
 $elapsedSec = [math]::Round($sw.Elapsed.TotalSeconds, 1)
 
-# 7. Pembersihan berkas usang (yang sudah dihapus di GitHub, selain cache user)
+# 6. Pembersihan berkas usang (yang sudah dihapus di GitHub, selain cache user)
 Write-Host ""
 Write-Host "Membersihkan berkas usang..." -ForegroundColor Yellow
 $manifestPaths = @{}
@@ -400,7 +378,7 @@ if ($deletedCount -gt 0) {
     Write-Host "Berhasil menghapus $deletedCount berkas usang dari $targetDir." -ForegroundColor Yellow
 }
 
-# 8. Simpan manifest lokal (berisi versi dan index file)
+# 7. Simpan manifest lokal (murni array berkas)
 $localManifestPath = Join-Path $targetDir "#updateallfiles\manifest.json"
 $remoteData | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $localManifestPath -Encoding UTF8 -Force
 
@@ -408,9 +386,9 @@ Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host "                   SINKRONISASI SUKSES                    " -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host " Versi Terpasang : $remoteVersion" -ForegroundColor White
 Write-Host " Waktu Unduh     : $elapsedSec detik" -ForegroundColor White
-Write-Host " Semua berkas di $targetDir telah diperbarui." -ForegroundColor White
+Write-Host " Berkas Diproses : $($needsDownload.Count) berkas" -ForegroundColor White
+Write-Host " Semua berkas di $targetDir telah sinkron." -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host ""
 
