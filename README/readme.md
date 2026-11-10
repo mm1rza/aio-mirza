@@ -32,7 +32,7 @@ Proyek ini memiliki **3 berkas inti utama yang telah terintegrasi permanen ke si
 
 | Path Berkas Wajib | Peran & Integrasi Sistem |
 | :--- | :--- |
-| **`#updateallfiles\#master\mm1rza.ps1`** | **Launcher Menu All-In-One**. File yang dipanggil langsung oleh shortlink cloud `https://mnet.my.id/update/github/aio`. Menyajikan menu aktivasi MAS, Spotify anti-iklan, dan eksekusi updater. |
+| **`#updateallfiles\#master\mm1rza.ps1`** | **Launcher Menu All-In-One**. File yang dipanggil langsung oleh shortlink cloud `https://mnet.my.id/update/github/aio`. Menyajikan menu aktivasi MAS, sinkronisasi updater, dan ekstensi browser. |
 | **`#updateallfiles\update.ps1`** | **Mesin Updater Paralel**. Skrip *deployment* dan sinkronisasi otomatis untuk menarik dan memperbarui seluruh ekosistem AIO Mirza langsung dari GitHub. Terhubung juga ke installer Windows. |
 | **`Regedit\allinout.reg`** | **Registri Induk Windows**. Berkas registri pasca-install (mengatur *AutoEndTasks*, restorasi Windows Photo Viewer klasik, optimasi *sharing printer* RPC Windows 11, pembersihan folder 3D Objects & OneDrive, dll). |
 
