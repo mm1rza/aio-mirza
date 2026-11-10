@@ -52,8 +52,7 @@ $selectedChoices = Get-UserChoices -raw $inputChoice
 
 if (-not $selectedChoices -or $selectedChoices.Count -eq 0) {
     Write-Host "Pilihan tidak valid. Silakan jalankan ulang skrip." -ForegroundColor Red
-    Start-Sleep -Seconds 2
-    exit
+    return
 }
 
 Write-Host ""
@@ -144,4 +143,3 @@ foreach ($choice in $selectedChoices) {
 
 Write-Host ""
 Write-Host "Semua tugas terpilih selesai dijalankan!" -ForegroundColor Green
-Read-Host "Tekan Enter untuk keluar..."
