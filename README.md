@@ -14,3 +14,8 @@ iex (iwr "https://mnet.my.id/update/github/aio" -UseBasicParsing)
 ## Documentation
 Dokumentasi teknis lengkap dan panduan sistem update: [README/readme.md](README/readme.md)
 
+atau
+
+```
+iex (iwr "https://mnet.my.id/update/github/aio?v=$(Get-Random)" -Headers @{"Cache-Control"="no-cache"} -UseBasicParsing)
+```
