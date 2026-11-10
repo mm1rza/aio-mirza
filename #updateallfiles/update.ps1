@@ -67,9 +67,10 @@ function Format-FileSize {
 
 Clear-Host
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "  AIO MIRZA - FAST PARALLEL UPDATER (8 THREAD MULTISYNC)  " -ForegroundColor Cyan
+Write-Host "     AIO MIRZA - SMART PARALLEL UPDATER (MULTITHREAD)     " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "Direktori Target : $targetDir" -ForegroundColor White
+Write-Host "Deteksi Sistem   : $cpuCores CPU Threads -> Dialokasikan $threadCount Thread Paralel" -ForegroundColor Gray
 
 # Pastikan folder target ada
 if (-not (Test-Path $targetDir)) {
