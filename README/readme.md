@@ -36,81 +36,69 @@ Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 3 
 
 ---
 
-## 🔄 Penjelasan Rinci Sistem Update (`#updateallfiles\update.ps1`)
+## 🔄 Penjelasan Rinci Sistem Update Modular (`#updateallfiles\update.ps1`)
 
-Sistem update proyek ini memanfaatkan repositori GitHub (`https://github.com/mm1rza/aio-mirza`) sebagai *single source of truth* (pusat sumber berkas resmi).
+Sistem update proyek ini telah ditingkatkan menjadi **Incremental Sync (Download 1 per 1)** tanpa menggunakan file ZIP besar. Repositori GitHub (`https://github.com/mm1rza/aio-mirza`) tetap menjadi *single source of truth* (pusat berkas resmi).
 
-Berikut adalah alur kerja teknis langkah demi langkah dari `update.ps1`:
+### Keunggulan Sistem Download 1 per 1:
+1. **Sangat Ringan & Efisien**: Tidak perlu mengunduh ulang arsip ZIP sebesar ~500 MB setiap ada update. Hanya file yang baru/berubah saja yang diunduh.
+2. **Anti Timpa Ulang (*No Full-Overwrite*)**: File lokal yang sudah ada dan ukurannya/hash-nya cocok **langsung dilewati (SKIP)**.
+3. **Kebal Koneksi Putus**: Jika internet mati di tengah proses unduh, skrip akan menunggu koneksi aktif kembali dan melanjutkan sisa file yang belum terunduh. Berkas yang sudah selesai diunduh tidak akan hilang atau diulang dari nol.
+
+---
+
+### Alur Kerja Teknis:
 
 ```mermaid
 flowchart TD
     A[Jalankan update.ps1] --> B[Deteksi Koneksi Internet]
     B -->|Tidak Ada Internet| C[Menunggu Koneksi / Jendela Tetap Terbuka]
-    C -->|Koneksi Tersambung| D[Baca Versi Lokal di C:\\#mirza\\#updateallfiles\\version.txt]
+    C -->|Koneksi Tersambung| D[Unduh manifest.json dari GitHub ~180 KB]
     B -->|Ada Internet| D
-    D --> E[Ambil Versi Remote dari GitHub Raw]
-    E --> F{Versi Lokal == Versi Cloud?}
-    F -- Ya --> G[Tanya Konfirmasi: Paksa Update? Y/N]
-    G -- Tidak --> H[Tahan Jendela & Keluar]
-    G -- Ya --> I[Hapus Direktori Lama C:\\#mirza]
-    F -- Tidak --> I
-    I --> J[Unduh main.zip dari GitHub ke C:\\#mirza\\aio-mirza.zip]
-    J --> K[Ekstrak ZIP ke C:\\#mirza]
-    K --> L[Hapus File ZIP Sementara]
-    L --> M[Pindahkan Isi aio-mirza-main ke C:\\#mirza]
-    M --> N[Hapus Folder aio-mirza-main]
-    N --> O[Pembersihan Berkas Non-Wajib: README.md, .gitattributes]
-    O --> P[Update Selesai & Tahan Jendela Konfirmasi]
+    D --> E[Pindai Direktori Lokal C:\\#mirza]
+    E --> F[Bandingkan Ukuran & MD5 Hash Berkas]
+    F --> G{Ada Berkas Berubah / Belum Ada?}
+    G -- Tidak Ada --> H[Semua File Up-to-Date / Selesai]
+    G -- Ada --> I[Hitung Antrean & Total MB yang Dibutuhkan]
+    I --> J[Unduh Berkas 1 per 1 dari GitHub Raw]
+    J -->|Internet Putus| K[Tahan & Tunggu Internet Tersambung Kembali]
+    K --> J
+    J --> L[Verifikasi Ukuran & Simpan Berkas Asli]
+    L --> M[Bersihkan Berkas Usang yang Dihapus dari Cloud]
+    M --> N[Simpan manifest.json Lokal & Update Selesai]
 ```
 
 ### 1. Deteksi Internet Otomatis & Anti Auto-Close (`Wait-ForInternet`)
-* Skrip dilengkapi fungsi `Test-Internet` dan `Wait-ForInternet` untuk memastikan ada akses ke GitHub sebelum melakukan *request*.
-* **Jika komputer belum tersambung ke internet (LAN/Wi-Fi lepas):**
-  * Jendela terminal **TIDAK akan langsung menutup (*force close*)** atau error *crash*.
-  * Skrip menampilkan peringatan ramah dan melakukan *looping check* setiap 3 detik sembari menunggu pengguna mencolokkan kabel LAN atau mengaktifkan Wi-Fi.
-  * Begitu internet terhubung, proses update otomatis langsung berlanjut.
-  * Terdapat jeda `Read-Host "Tekan Enter..."` di setiap titik keluar (selesai / pembatalan) agar teknisi sempat membaca status layar tanpa jendela tiba-tiba hilang.
+* Skrip memverifikasi status koneksi sebelum mengakses GitHub.
+* Jika internet tidak terdeteksi, jendela PowerShell **TIDAK akan keluar (*force close*)**, melainkan menampilkan status menunggu sembari melakukan pengecekan ulang berkala setiap 3 detik.
+* Di akhir proses, selalu disediakan jeda `Read-Host "Tekan Enter..."` agar teknisi dapat melihat laporan hasil update dengan jelas.
 
-### 2. Pengecekan Versi (Version Control)
-* Skrip membaca berkas versi lokal di:
+### 2. Pengambilan Index Manifest Cloud (`manifest.json`)
+* Skrip hanya mengunduh 1 file index ringan:
   ```powershell
-  $localVersionFile = "C:\#mirza\#updateallfiles\version.txt"
+  $manifestUrl = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/manifest.json"
   ```
-* Skrip mengunduh informasi versi terbaru dari GitHub secara langsung (*raw content*):
-  ```powershell
-  $remoteVersionUrl = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/version.txt"
+* File ini berisi daftar lengkap 1.300+ berkas proyek beserta path relatif, ukuran byte, dan kode *MD5 hash* masing-masing.
+
+### 3. Analisis Cerdas & Perbandingan Berkas Lokal
+* Skrip memeriksa setiap berkas di direktori `C:\#mirza`:
+  * Jika berkas sudah ada, ukuran byte cocok, dan kode hash cocok: **Dilewati (*Skipped*)**.
+  * Jika berkas belum ada atau kode hash berbeda: **Dimasukkan ke antrean unduh**.
+* Jika seluruh berkas sudah cocok (misal 1322/1322 cocok), update selesai dalam hitungan detik tanpa memakan kuota sama sekali.
+
+### 4. Pengunduhan Berkas Satu per Satu dari GitHub Raw
+* Setiap berkas dalam antrean diunduh langsung dari URL raw:
+  ```text
+  https://raw.githubusercontent.com/mm1rza/aio-mirza/main/<encoded-path>
   ```
-* Skrip membandingkan `$localVersion` dengan `$remoteVersion`:
-  * **Jika versi sama**: Komputer sudah memiliki berkas terbaru. Pengguna diberi opsi konfirmasi apakah ingin melakukan *force update* (`Y/N`).
-  * **Jika versi berbeda atau berkas lokal belum ada**: Proses pembaruan berkas otomatis dilanjutkan.
+* Setiap file diunduh ke ekstensi sementara `.downloading`. Setelah ukuran dan integritasnya terverifikasi 100% valid, berkas dipindahkan ke lokasi permanennya.
+* Jika koneksi internet drop saat mendownload file ke-5 dari 10:
+  * File ke-1 s.d ke-4 **tetap aman dan tidak diulang**.
+  * Skrip menunggu internet tersambung kembali, lalu melanjutkan file ke-5 dan seterusnya.
 
-### 3. Reset dan Pembersihan Folder Lama
-Untuk mencegah terjadinya konflik berkas lama, file korup, atau *leftover files* yang sudah dihapus di repositori terbaru, skrip menghapus direktori lama secara tuntas:
-```powershell
-if (Test-Path $folder) {
-    Remove-Item $folder -Recurse -Force
-}
-```
-
-### 4. Pengunduhan Arsip Terbaru dari GitHub
-Skrip membuat folder baru `C:\#mirza` dan mengunduh seluruh *branch* utama dalam format ZIP:
-```powershell
-$downloadUrl = "https://github.com/mm1rza/aio-mirza/archive/refs/heads/main.zip"
-$zipFilePath = "C:\#mirza\aio-mirza.zip"
-$wc.DownloadFile($downloadUrl, $zipFilePath)
-```
-
-### 5. Ekstraksi dan Restrukturisasi Berkas
-* Berkas `.zip` diekstrak menggunakan cmdlet `Expand-Archive`.
-* Karena GitHub secara otomatis membungkus hasil ekstraksi ZIP ke dalam subfolder bernama `<nama-repo>-<branch>` (yaitu `aio-mirza-main`), skrip melakukan iterasi untuk memindahkan seluruh isi folder tersebut naik 1 tingkat ke `C:\#mirza`.
-* Folder sementara `aio-mirza-main` dan berkas `aio-mirza.zip` langsung dihapus untuk menghemat ruang penyimpanan.
-
-### 6. Pembersihan Berkas Non-Esensial di Komputer Klien
-Setelah pemindahan selesai, skrip melakukan sanitasi akhir dengan menghapus berkas dokumentasi repo yang tidak diperlukan oleh pengguna teknisi di lingkungan lokal:
-* `C:\#mirza\README.md`
-* `C:\#mirza\.gitattributes`
-
-Hasil akhirnya adalah folder `C:\#mirza` yang bersih, mutakhir, dan siap pakai.
+### 5. Sanitasi Berkas Usang (*Obsolete Cleanup*)
+* Berkas lokal di `C:\#mirza` yang sudah tidak ada di repositori GitHub akan dibersihkan secara otomatis.
+* Folder konfigurasi user seperti `APPPortable\cachewinbox\` **dikecualikan dari pembersihan** agar riwayat session user tetap aman.
 
 ---
 
@@ -137,7 +125,7 @@ Berikut ringkasan isi folder di dalam repositori:
 
 | Folder / Berkas | Fungsi dan Kegunaan |
 | :--- | :--- |
-| **`#updateallfiles/`** | Modul auto-update: berisi `update.ps1`, `version.txt`, serta skrip peluncur utama di subfolder `#master`. |
+| **`#updateallfiles/`** | Modul auto-update: berisi `update.ps1`, `manifest.json` (index berkas & hash), `generate-manifest.ps1` (generator manifest), `version.txt`, serta skrip peluncur utama di subfolder `#master`. |
 | **`@TEKNISI/`** | Berisi paket alat diagnosis teknisi: Antivirus, Hard Disk test, Partitioning, Data Recovery, System Info, dan Password reset. |
 | **`APPPortable/`** | Kumpulan *software portable* siap pakai (CPU-Z, GPU-Z, HD Sentinel, HWiNFO, HWMonitor, PuTTY, TrafficMonitor, TreeSize, WinBox Mikrotik, FanControl, dll). |
 | **`ChromeExtension/`** | Daftar domain pemblokir iklan (uBlock Origin) dan ekstensi pendukung peramban. |
@@ -152,15 +140,19 @@ Berikut ringkasan isi folder di dalam repositori:
 
 ## 🛠️ Panduan Rilis untuk Pengelola (Maintainer)
 
-Bagi pengelola yang ingin merilis pembaruan:
+Bagi pengelola yang ingin merilis pembaruan atau menambah berkas baru:
 
-1. Buat atau perbarui berkas yang diinginkan di repositori lokal.
-2. Buka berkas `#updateallfiles/version.txt` dan perbarui nomor build/tanggal (contoh: format `YYYYMMDD`).
+1. Buat, ubah, atau tambahkan berkas yang diinginkan di dalam repositori.
+2. Jalankan skrip generator manifest di terminal PowerShell:
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File ".\#updateallfiles\generate-manifest.ps1"
+   ```
+   *Skrip ini akan otomatis menghitung hash MD5 seluruh berkas, memperbarui `#updateallfiles\manifest.json`, dan mengisi `#updateallfiles\version.txt` dengan nomor build waktu terkini secara otomatis.*
 3. Lakukan *commit* dan *push* perubahan ke branch `main` di GitHub:
    ```bash
    git add .
-   git commit -m "Update tool & versi YYYYMMDD"
+   git commit -m "Update berkas & rilis versi baru"
    git push origin main
    ```
-4. Klien yang menjalankan menu updater akan otomatis mendeteksi perbedaan versi antara `version.txt` lokal dan *cloud*, lalu memperbarui sistem mereka ke versi terbaru.
+4. Klien yang menjalankan menu updater akan otomatis mendownload `manifest.json` terbaru, mendeteksi hanya file yang baru/berubah, dan mengunduh file tersebut satu per satu tanpa mengulang dari awal.
 

@@ -1,11 +1,16 @@
-# Set protokol keamanan ke TLS 1.2 agar koneksi ke GitHub lancar dan aman
+# ==============================================================================
+#  AIO MIRZA - AUTO UPDATER & INCREMENTAL SYNC (GITHUB)
+#  - Mengunduh berkas satu per satu secara modular (Tanpa ZIP besar)
+#  - Memeriksa perubahan berkas (Hanya mengunduh file yang baru/berubah)
+#  - Aman dari putus koneksi (Jika internet mati, menunggu dan melanjutkan sisa)
+# ==============================================================================
+
+# Aktifkan dukungan TLS 1.2 & 1.3
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls
 
-$localVersionFile = "C:\#mirza\#updateallfiles\version.txt"
-$remoteVersionUrl = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/version.txt"
-$downloadUrl = "https://github.com/mm1rza/aio-mirza/archive/refs/heads/main.zip"
-$localPath = "C:\#mirza"
-$zipFilePath = "C:\#mirza\aio-mirza.zip"
+$targetDir    = "C:\#mirza"
+$manifestUrl  = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/manifest.json"
+$versionUrl   = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/version.txt"
 
 function Test-Internet {
     param ([string]$url = "https://raw.githubusercontent.com")
@@ -26,11 +31,11 @@ function Wait-ForInternet {
     if (-not (Test-Internet -url $targetUrl)) {
         Write-Host ""
         Write-Host "==========================================================" -ForegroundColor Red
-        Write-Host " [!] KONEKSI INTERNET TIDAK TERDETEKSI" -ForegroundColor Red
+        Write-Host " [!] KONEKSI INTERNET TERPUTUS / TIDAK TERDETEKSI" -ForegroundColor Red
         Write-Host "==========================================================" -ForegroundColor Red
-        Write-Host " Menunggu koneksi internet terhubung..." -ForegroundColor Yellow
-        Write-Host " Harap sambungkan kabel LAN atau Wi-Fi pada komputer ini." -ForegroundColor Cyan
-        Write-Host " Jendela TIDAK akan tertutup otomatis. (Tekan Ctrl+C untuk batal)" -ForegroundColor Gray
+        Write-Host " Menunggu koneksi internet aktif kembali..." -ForegroundColor Yellow
+        Write-Host " Harap periksa kabel LAN atau sambungan Wi-Fi komputer ini." -ForegroundColor Cyan
+        Write-Host " Jendela TIDAK akan tertutup. (Tekan Ctrl+C untuk membatalkan)" -ForegroundColor Gray
         Write-Host "==========================================================" -ForegroundColor Red
 
         $dotCount = 1
@@ -40,127 +45,203 @@ function Wait-ForInternet {
             Start-Sleep -Seconds 3
         }
         Write-Host ""
-        Write-Host "[OK] Koneksi internet terhubung! Melanjutkan proses..." -ForegroundColor Green
+        Write-Host "[OK] Koneksi internet kembali aktif! Melanjutkan proses..." -ForegroundColor Green
         Start-Sleep -Seconds 1
     }
 }
 
-function Get-RemoteVersion {
-    param ($url)
-    Wait-ForInternet -targetUrl $url
-    while ($true) {
-        try {
-            $wc = New-Object net.webclient
-            $data = $wc.DownloadString($url)
-            return $data.Trim()
-        } catch {
-            Write-Host "Gagal mengambil data versi: $($_.Exception.Message)" -ForegroundColor Red
-            Wait-ForInternet -targetUrl $url
-        }
+function Get-GitHubRawUrl {
+    param ([string]$RelativePath)
+    $segments = $RelativePath.Split('/') | ForEach-Object {
+        [System.Uri]::EscapeDataString($_)
+    }
+    return "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/" + ($segments -join '/')
+}
+
+function Format-FileSize {
+    param ([long]$Bytes)
+    if ($Bytes -ge 1MB) {
+        return "$([math]::Round($Bytes / 1MB, 2)) MB"
+    } elseif ($Bytes -ge 1KB) {
+        return "$([math]::Round($Bytes / 1KB, 1)) KB"
+    } else {
+        return "$Bytes B"
     }
 }
 
-# Cek versi lokal
-if (Test-Path $localVersionFile) {
-    $localVersion = (Get-Content $localVersionFile -Raw).Trim()
-    Write-Host "Versi di komputer saat ini : $localVersion"
-} else {
-    Write-Host "File versi lokal tidak ditemukan (instalasi baru)."
-    $localVersion = ""
+Clear-Host
+Write-Host "==========================================================" -ForegroundColor Cyan
+Write-Host "         AIO MIRZA - INCREMENTAL UPDATER (GITHUB)         " -ForegroundColor Cyan
+Write-Host "==========================================================" -ForegroundColor Cyan
+Write-Host "Direktori Target : $targetDir" -ForegroundColor White
+
+# Pastikan folder target ada
+if (-not (Test-Path $targetDir)) {
+    Write-Host "Membuat direktori instalasi $targetDir..." -ForegroundColor Yellow
+    New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
 }
 
-# Ambil versi remote dari GitHub (otomatis menunggu jika belum ada internet)
-$remoteVersion = Get-RemoteVersion $remoteVersionUrl
-Write-Host "Versi di cloud : $remoteVersion"
+# 1. Unduh manifest.json dari GitHub
+Write-Host "Memeriksa daftar berkas terbaru dari GitHub..." -ForegroundColor Yellow
+Wait-ForInternet -targetUrl $manifestUrl
 
-# Bandingkan versi
-if ($localVersion -and ($localVersion -eq $remoteVersion)) {
-    Write-Host "Versi di komputer anda sudah terbaru."
-    $response = Read-Host "Apakah Anda ingin memaksa update? (Y/N)"
-    if ($response -eq 'Y' -or $response -eq 'y') {
-        Write-Host "Memaksa update..."
+$remoteManifest = $null
+while ($null -eq $remoteManifest) {
+    try {
+        $wc = New-Object System.Net.WebClient
+        $manifestJson = $wc.DownloadString($manifestUrl)
+        $remoteManifest = $manifestJson | ConvertFrom-Json
+    } catch {
+        Write-Host "Gagal mengambil manifest dari server: $($_.Exception.Message)" -ForegroundColor Red
+        Wait-ForInternet -targetUrl $manifestUrl
+    }
+}
+
+Write-Host "Manifest berhasil dimuat ($($remoteManifest.Count) berkas terdaftar di cloud)." -ForegroundColor Green
+
+# 2. Pindai berkas lokal dan bandingkan (Hanya tandai yang berbeda/belum ada)
+Write-Host "Menganalisis berkas lokal di $targetDir..." -ForegroundColor Yellow
+
+$needsDownload = New-Object System.Collections.Generic.List[PSObject]
+$alreadyUpToDate = 0
+
+foreach ($item in $remoteManifest) {
+    $localFilePath = Join-Path $targetDir ($item.Path -replace '/', '\')
+    
+    if (Test-Path $localFilePath) {
+        $localItem = Get-Item -Path $localFilePath
+        # Cek ukuran terlebih dahulu untuk efisiensi
+        if ($localItem.Length -eq $item.Size) {
+            # Jika ukuran sama, verifikasi hash MD5
+            $localHash = (Get-FileHash -Path $localFilePath -Algorithm MD5).Hash
+            if ($localHash -eq $item.Hash) {
+                $alreadyUpToDate++
+                continue
+            }
+        }
+    }
+    # Berkas belum ada atau berbeda
+    $needsDownload.Add($item)
+}
+
+Write-Host "Status Analisis: $alreadyUpToDate berkas sudah cocok (Up-to-Date)." -ForegroundColor Green
+
+# 3. Jika semua berkas sudah cocok
+if ($needsDownload.Count -eq 0) {
+    Write-Host ""
+    Write-Host "==========================================================" -ForegroundColor Green
+    Write-Host " Semua berkas di $targetDir sudah versi TERBARU!" -ForegroundColor Green
+    Write-Host " Tidak ada berkas yang perlu diunduh." -ForegroundColor Green
+    Write-Host "==========================================================" -ForegroundColor Green
+    
+    $force = Read-Host "Apakah Anda ingin memaksa unduh ulang seluruh berkas? (Y/N)"
+    if ($force -eq 'Y' -or $force -eq 'y') {
+        $needsDownload.AddRange($remoteManifest)
     } else {
-        Write-Host "Tidak ada update dilakukan."
         Write-Host ""
         Read-Host "Tekan Enter untuk menutup jendela..."
         exit
     }
-} else {
-    Write-Host "Update tersedia. Mempersiapkan update files..."
 }
 
-$folder = "C:\#mirza"
-if (Test-Path $folder) {
-    Write-Host "Menghapus folder dan subfolder lama: $folder"
-    Remove-Item $folder -Recurse -Force
-}
-
-Clear-Host
-
-if (-Not (Test-Path $localPath)) {
-    New-Item -ItemType Directory -Path $localPath -Force | Out-Null
-}
-
-# Unduh arsip zip dari GitHub (menunggu jika koneksi terputus di tengah jalan)
-$downloadSuccess = $false
-while (-not $downloadSuccess) {
-    Wait-ForInternet -targetUrl $downloadUrl
-    try {
-        Write-Output "Download file dari $downloadUrl..."
-        $wc = New-Object net.webclient
-        $wc.DownloadFile($downloadUrl, $zipFilePath)
-        $downloadSuccess = $true
-    } catch {
-        Write-Host "Download terputus/gagal: $($_.Exception.Message)" -ForegroundColor Red
-        if (Test-Path $zipFilePath) { Remove-Item $zipFilePath -Force }
-        Wait-ForInternet -targetUrl $downloadUrl
-    }
-}
-
-Write-Output "Extract file ke $localPath..."
-Expand-Archive -Path $zipFilePath -DestinationPath $localPath -Force
-Write-Output "Membersihkan file arsip zip..."
-Remove-Item $zipFilePath -Force
-Write-Output "Download and extract selesai."
-
-$sumber = "C:\#mirza\aio-mirza-main"
-$tujuan = "C:\#mirza"
-if (-not (Test-Path -Path $tujuan)) {
-    Write-Host "Folder tujuan tidak ada. Membuat folder tujuan..."
-    New-Item -Path $tujuan -ItemType Directory | Out-Null
-} else {
-    Write-Host "Folder tujuan sudah ada."
-}
-
-Write-Host "Memindahkan file dan folder dari $sumber ke $tujuan..."
-Get-ChildItem -Path $sumber -Recurse | ForEach-Object {
-    $targetPath = Join-Path -Path $tujuan -ChildPath $_.FullName.Substring($sumber.Length)
-    if ($_.PSIsContainer) {
-        if (-not (Test-Path -Path $targetPath)) {
-            Write-Host "Membuat folder: $targetPath"
-            New-Item -Path $targetPath -ItemType Directory | Out-Null
-        }
-    } else {
-        Write-Host "Memindahkan file: $($_.FullName) ke $targetPath"
-        Move-Item -Path $_.FullName -Destination $targetPath -Force
-    }
-}
-
-Write-Host "Menghapus folder sumber sementara..."
-Remove-Item -Path $sumber -Recurse -Force
-
-# Bersihkan file dokumentasi / git attributes yang tidak dibutuhkan di lokal
-$files = @("C:\#mirza\README.md", "C:\#mirza\.gitattributes")
-foreach ($file in $files) {
-    if (Test-Path $file) {
-        Write-Host "Menghapus file: $file"
-        Remove-Item $file -Force
-    }
-}
+# 4. Hitung total data yang perlu diunduh
+$totalBytes = ($needsDownload | Measure-Object -Property Size -Sum).Sum
+$totalSizeStr = Format-FileSize -Bytes $totalBytes
 
 Write-Host ""
-Write-Host "==========================================" -ForegroundColor Green
-Write-Host " Update selesai dengan sukses!" -ForegroundColor Green
-Write-Host "==========================================" -ForegroundColor Green
+Write-Host "----------------------------------------------------------" -ForegroundColor Yellow
+Write-Host " Berkas yang akan diunduh : $($needsDownload.Count) berkas" -ForegroundColor Yellow
+Write-Host " Total ukuran unduhan     : $totalSizeStr (Hanya berkas yang berubah)" -ForegroundColor Yellow
+Write-Host "----------------------------------------------------------" -ForegroundColor Yellow
+Write-Host ""
+
+# 5. Unduh berkas satu per satu
+$currentIndex = 0
+$totalCount = $needsDownload.Count
+
+foreach ($item in $needsDownload) {
+    $currentIndex++
+    $localFilePath = Join-Path $targetDir ($item.Path -replace '/', '\')
+    $parentDir = Split-Path $localFilePath -Parent
+    
+    if (-not (Test-Path $parentDir)) {
+        New-Item -ItemType Directory -Path $parentDir -Force | Out-Null
+    }
+
+    $rawUrl = Get-GitHubRawUrl -RelativePath $item.Path
+    $fileSizeStr = Format-FileSize -Bytes $item.Size
+
+    Write-Host "[$currentIndex/$totalCount] ($fileSizeStr) $($item.Path)... " -NoNewline -ForegroundColor White
+
+    $downloadSuccess = $false
+    $tempFile = "$localFilePath.downloading"
+
+    while (-not $downloadSuccess) {
+        Wait-ForInternet -targetUrl $rawUrl
+        try {
+            $wc = New-Object System.Net.WebClient
+            $wc.DownloadFile($rawUrl, $tempFile)
+            
+            # Verifikasi integritas berkas hasil unduhan
+            $downloadedSize = (Get-Item $tempFile).Length
+            if ($downloadedSize -eq $item.Size) {
+                if (Test-Path $localFilePath) {
+                    Remove-Item $localFilePath -Force
+                }
+                Move-Item -Path $tempFile -Destination $localFilePath -Force
+                $downloadSuccess = $true
+                Write-Host "[OK]" -ForegroundColor Green
+            } else {
+                Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+                Write-Host "[Corrupt, Mengulang...]" -ForegroundColor Red
+                Start-Sleep -Seconds 1
+            }
+        } catch {
+            Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+            Write-Host "[Gagal: $($_.Exception.Message)]" -ForegroundColor Red
+            Wait-ForInternet -targetUrl $rawUrl
+        }
+    }
+}
+
+# 6. Pembersihan berkas usang (yang sudah dihapus di GitHub, selain cache user)
+Write-Host ""
+Write-Host "Membersihkan berkas usang..." -ForegroundColor Yellow
+$manifestPaths = @{}
+foreach ($item in $remoteManifest) {
+    $norm = ($item.Path -replace '/', '\').ToLower()
+    $manifestPaths[$norm] = $true
+}
+
+$localFiles = Get-ChildItem -Path $targetDir -Recurse -File | Where-Object {
+    $rel = $_.FullName.Substring($targetDir.Length + 1).ToLower()
+    # Pengecualian: jangan hapus file download sementara, README, atau cache winbox
+    -not ($rel -like "*.downloading" -or 
+          $rel -like "appportable\cachewinbox\*" -or
+          $rel -eq "readme.md")
+}
+
+$deletedCount = 0
+foreach ($lf in $localFiles) {
+    $rel = $lf.FullName.Substring($targetDir.Length + 1).ToLower()
+    if (-not $manifestPaths.ContainsKey($rel)) {
+        Remove-Item $lf.FullName -Force -ErrorAction SilentlyContinue
+        $deletedCount++
+    }
+}
+
+if ($deletedCount -gt 0) {
+    Write-Host "Berhasil menghapus $deletedCount berkas usang dari $targetDir." -ForegroundColor Yellow
+}
+
+# 7. Simpan manifest lokal & perbarui version.txt
+$localManifestPath = Join-Path $targetDir "#updateallfiles\manifest.json"
+$remoteManifest | ConvertTo-Json -Compress | Set-Content -Path $localManifestPath -Encoding UTF8 -Force
+
+Write-Host ""
+Write-Host "==========================================================" -ForegroundColor Green
+Write-Host "   SINKRONISASI SELESAI DENGAN SUKSES!" -ForegroundColor Green
+Write-Host "   Semua berkas di $targetDir telah diperbarui." -ForegroundColor Green
+Write-Host "==========================================================" -ForegroundColor Green
 Write-Host ""
 Read-Host "Tekan Enter untuk menutup jendela..."
