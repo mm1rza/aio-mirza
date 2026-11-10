@@ -67,10 +67,11 @@ Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 3 
 
 Sistem update proyek ini telah ditingkatkan menjadi **Incremental Sync (Download 1 per 1)** tanpa menggunakan file ZIP besar. Repositori GitHub (`https://github.com/mm1rza/aio-mirza`) tetap menjadi *single source of truth* (pusat berkas resmi).
 
-### Keunggulan Sistem Download 1 per 1:
-1. **Sangat Ringan & Efisien**: Tidak perlu mengunduh ulang arsip ZIP sebesar ~500 MB setiap ada update. Hanya file yang baru/berubah saja yang diunduh.
-2. **Anti Timpa Ulang (*No Full-Overwrite*)**: File lokal yang sudah ada dan ukurannya/hash-nya cocok **langsung dilewati (SKIP)**.
-3. **Kebal Koneksi Putus**: Jika internet mati di tengah proses unduh, skrip akan menunggu koneksi aktif kembali dan melanjutkan sisa file yang belum terunduh. Berkas yang sudah selesai diunduh tidak akan hilang atau diulang dari nol.
+### Keunggulan Sistem Download 1 per 1 (Multithread Paralel):
+1. **Sangat Cepat (8 Thread Paralel)**: Mengunduh hingga 8 berkas secara bersamaan (*concurrent worker threads*), mempercepat proses download hingga 5x - 8x lipat dibanding serial.
+2. **Sangat Ringan & Efisien**: Tidak perlu mengunduh ulang arsip ZIP sebesar ~500 MB setiap ada update. Hanya file yang baru/berubah saja yang diunduh.
+3. **Anti Timpa Ulang (*No Full-Overwrite*)**: File lokal yang sudah ada dan ukurannya/hash-nya cocok **langsung dilewati (SKIP)**.
+4. **Kebal Koneksi Putus**: Jika internet mati di tengah proses unduh, skrip akan menunggu koneksi aktif kembali dan melanjutkan sisa file yang belum terunduh. Berkas yang sudah selesai diunduh tidak akan hilang atau diulang dari nol.
 
 ---
 

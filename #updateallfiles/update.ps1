@@ -1,6 +1,6 @@
 # ==============================================================================
-#  AIO MIRZA - AUTO UPDATER & INCREMENTAL SYNC (GITHUB)
-#  - Mengunduh berkas satu per satu secara modular (Tanpa ZIP besar)
+#  AIO MIRZA - AUTO UPDATER & INCREMENTAL MULTITHREADED SYNC (GITHUB)
+#  - Mengunduh berkas satu per satu secara PARALEL (Multithreading 8 Thread)
 #  - Memeriksa perubahan berkas (Hanya mengunduh file yang baru/berubah)
 #  - Aman dari putus koneksi (Jika internet mati, menunggu dan melanjutkan sisa)
 # ==============================================================================
@@ -10,7 +10,7 @@
 
 $targetDir    = "C:\#mirza"
 $manifestUrl  = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/manifest.json"
-$versionUrl   = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/version.txt"
+$threadCount  = 8
 
 function Test-Internet {
     param ([string]$url = "https://raw.githubusercontent.com")
@@ -50,14 +50,6 @@ function Wait-ForInternet {
     }
 }
 
-function Get-GitHubRawUrl {
-    param ([string]$RelativePath)
-    $segments = $RelativePath.Split('/') | ForEach-Object {
-        [System.Uri]::EscapeDataString($_)
-    }
-    return "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/" + ($segments -join '/')
-}
-
 function Format-FileSize {
     param ([long]$Bytes)
     if ($Bytes -ge 1MB) {
@@ -71,7 +63,7 @@ function Format-FileSize {
 
 Clear-Host
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "         AIO MIRZA - INCREMENTAL UPDATER (GITHUB)         " -ForegroundColor Cyan
+Write-Host "  AIO MIRZA - FAST PARALLEL UPDATER (8 THREAD MULTISYNC)  " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "Direktori Target : $targetDir" -ForegroundColor White
 
@@ -160,65 +152,166 @@ $totalSizeStr = Format-FileSize -Bytes $totalBytes
 Write-Host ""
 Write-Host "----------------------------------------------------------" -ForegroundColor Yellow
 Write-Host " Berkas yang akan diunduh : $($needsDownload.Count) berkas" -ForegroundColor Yellow
-Write-Host " Total ukuran unduhan     : $totalSizeStr (Hanya berkas yang berubah)" -ForegroundColor Yellow
+Write-Host " Total ukuran unduhan     : $totalSizeStr" -ForegroundColor Yellow
+Write-Host " Kecepatan Unduh          : Multithread Paralel ($threadCount Thread)" -ForegroundColor Cyan
 Write-Host "----------------------------------------------------------" -ForegroundColor Yellow
 Write-Host ""
 
-# 5. Unduh berkas satu per satu
-$currentIndex = 0
-$totalCount = $needsDownload.Count
+# 5. Unduh berkas secara paralel menggunakan RunspacePool
+$sw = [System.Diagnostics.Stopwatch]::StartNew()
 
+$queue = New-Object 'System.Collections.Concurrent.ConcurrentQueue[psobject]'
 foreach ($item in $needsDownload) {
-    $currentIndex++
-    $localFilePath = Join-Path $targetDir ($item.Path -replace '/', '\')
-    $parentDir = Split-Path $localFilePath -Parent
-    
-    if (-not (Test-Path $parentDir)) {
-        New-Item -ItemType Directory -Path $parentDir -Force | Out-Null
+    $queue.Enqueue($item)
+}
+
+$logQueue = New-Object 'System.Collections.Concurrent.ConcurrentQueue[string]'
+$sync = [hashtable]::Synchronized(@{ Done = 0; Total = $needsDownload.Count })
+
+$pool = [runspacefactory]::CreateRunspacePool(1, $threadCount)
+$pool.Open()
+
+$workerScript = {
+    param ($q, $logs, $s, $destRoot)
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls
+
+    function Get-RawUrl {
+        param ([string]$rel)
+        $segs = $rel.Split('/') | ForEach-Object { [System.Uri]::EscapeDataString($_) }
+        return "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/" + ($segs -join '/')
     }
 
-    $rawUrl = Get-GitHubRawUrl -RelativePath $item.Path
-    $fileSizeStr = Format-FileSize -Bytes $item.Size
+    function Format-Size {
+        param ([long]$b)
+        if ($b -ge 1MB) { return "$([math]::Round($b / 1MB, 2)) MB" }
+        elseif ($b -ge 1KB) { return "$([math]::Round($b / 1KB, 1)) KB" }
+        else { return "$b B" }
+    }
 
-    Write-Host "[$currentIndex/$totalCount] ($fileSizeStr) $($item.Path)... " -NoNewline -ForegroundColor White
-
-    $downloadSuccess = $false
-    $tempFile = "$localFilePath.downloading"
-    $corruptRetry = 0
-
-    while (-not $downloadSuccess) {
-        Wait-ForInternet -targetUrl $rawUrl
+    function Test-Net {
+        param ([string]$url = "https://raw.githubusercontent.com")
         try {
-            $wc = New-Object System.Net.WebClient
-            $wc.DownloadFile($rawUrl, $tempFile)
-            
-            # Verifikasi integritas berkas hasil unduhan
-            $downloadedSize = (Get-Item $tempFile).Length
-            if ($downloadedSize -eq $item.Size) {
-                if (Test-Path $localFilePath) {
-                    Remove-Item $localFilePath -Force
-                }
-                Move-Item -Path $tempFile -Destination $localFilePath -Force
-                $downloadSuccess = $true
-                Write-Host "[OK]" -ForegroundColor Green
-            } else {
-                $corruptRetry++
-                Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
-                if ($corruptRetry -ge 3) {
-                    Write-Host "[Dilewati (Ukuran remote berbeda)]" -ForegroundColor Yellow
-                    break
-                } else {
-                    Write-Host "[Mengulang...]" -ForegroundColor Red
-                    Start-Sleep -Seconds 1
-                }
-            }
+            $req = [System.Net.WebRequest]::Create($url)
+            $req.Timeout = 4000
+            $req.Method = "HEAD"
+            $resp = $req.GetResponse()
+            $resp.Close()
+            return $true
         } catch {
-            Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
-            Write-Host "[Gagal: $($_.Exception.Message)]" -ForegroundColor Red
-            Wait-ForInternet -targetUrl $rawUrl
+            return $false
+        }
+    }
+
+    $it = $null
+    while ($q.TryDequeue([ref]$it)) {
+        $localFilePath = Join-Path $destRoot ($it.Path -replace '/', '\')
+        $parentDir = Split-Path $localFilePath -Parent
+        if (-not (Test-Path $parentDir)) {
+            New-Item -ItemType Directory -Path $parentDir -Force | Out-Null
+        }
+
+        $rawUrl = Get-RawUrl -rel $it.Path
+        $fileSizeStr = Format-Size -b $it.Size
+        $tempFile = "$localFilePath.downloading"
+        $downloadSuccess = $false
+        $corruptRetry = 0
+
+        while (-not $downloadSuccess) {
+            # Pastikan internet aktif sebelum mulai download
+            while (-not (Test-Net -url $rawUrl)) {
+                Start-Sleep -Seconds 2
+            }
+
+            try {
+                $wc = New-Object System.Net.WebClient
+                $wc.DownloadFile($rawUrl, $tempFile)
+
+                $downloadedSize = (Get-Item $tempFile).Length
+                if ($downloadedSize -eq $it.Size) {
+                    if (Test-Path $localFilePath) {
+                        Remove-Item $localFilePath -Force
+                    }
+                    Move-Item -Path $tempFile -Destination $localFilePath -Force
+                    $downloadSuccess = $true
+
+                    # Hitung progres thread-safe
+                    $cur = 0
+                    [System.Threading.Monitor]::Enter($s)
+                    try {
+                        $s.Done++
+                        $cur = $s.Done
+                    } finally {
+                        [System.Threading.Monitor]::Exit($s)
+                    }
+
+                    $logs.Enqueue("[$cur/$($s.Total)] ($fileSizeStr) $($it.Path)... [OK]")
+                } else {
+                    $corruptRetry++
+                    Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+                    if ($corruptRetry -ge 3) {
+                        $cur = 0
+                        [System.Threading.Monitor]::Enter($s)
+                        try {
+                            $s.Done++
+                            $cur = $s.Done
+                        } finally {
+                            [System.Threading.Monitor]::Exit($s)
+                        }
+                        $logs.Enqueue("[$cur/$($s.Total)] ($fileSizeStr) $($it.Path)... [Dilewati (Ukuran remote berbeda)]")
+                        break
+                    } else {
+                        Start-Sleep -Seconds 1
+                    }
+                }
+            } catch {
+                Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+                Start-Sleep -Seconds 2
+            }
         }
     }
 }
+
+$workers = @()
+1..$threadCount | ForEach-Object {
+    $ps = [powershell]::Create()
+    $ps.RunspacePool = $pool
+    $ps.AddScript($workerScript).AddArgument($queue).AddArgument($logQueue).AddArgument($sync).AddArgument($targetDir) | Out-Null
+    $workers += @{ PS = $ps; Handle = $ps.BeginInvoke() }
+}
+
+# Tampilkan log unduhan secara real-time dari semua thread
+while (($workers | Where-Object { -not $_.Handle.IsCompleted }).Count -gt 0) {
+    $msg = $null
+    while ($logQueue.TryDequeue([ref]$msg)) {
+        if ($msg -like "*[OK]*") {
+            Write-Host $msg -ForegroundColor White
+        } else {
+            Write-Host $msg -ForegroundColor Yellow
+        }
+    }
+    Start-Sleep -Milliseconds 40
+}
+
+# Kuras sisa antrean log
+$msg = $null
+while ($logQueue.TryDequeue([ref]$msg)) {
+    if ($msg -like "*[OK]*") {
+        Write-Host $msg -ForegroundColor White
+    } else {
+        Write-Host $msg -ForegroundColor Yellow
+    }
+}
+
+foreach ($w in $workers) {
+    $w.PS.EndInvoke($w.Handle) | Out-Null
+    $w.PS.Dispose()
+}
+$pool.Close()
+$pool.Dispose()
+
+$sw.Stop()
+$elapsedSec = [math]::Round($sw.Elapsed.TotalSeconds, 1)
 
 # 6. Pembersihan berkas usang (yang sudah dihapus di GitHub, selain cache user)
 Write-Host ""
@@ -234,7 +327,8 @@ $localFiles = Get-ChildItem -Path $targetDir -Recurse -File | Where-Object {
     # Pengecualian: jangan hapus file download sementara, README, atau cache winbox
     -not ($rel -like "*.downloading" -or 
           $rel -like "appportable\cachewinbox\*" -or
-          $rel -eq "readme.md")
+          $rel -eq "readme.md" -or
+          $rel -like "readme\*")
 }
 
 $deletedCount = 0
@@ -250,13 +344,14 @@ if ($deletedCount -gt 0) {
     Write-Host "Berhasil menghapus $deletedCount berkas usang dari $targetDir." -ForegroundColor Yellow
 }
 
-# 7. Simpan manifest lokal & perbarui version.txt
+# 7. Simpan manifest lokal
 $localManifestPath = Join-Path $targetDir "#updateallfiles\manifest.json"
 $remoteManifest | ConvertTo-Json -Compress | Set-Content -Path $localManifestPath -Encoding UTF8 -Force
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host "   SINKRONISASI SELESAI DENGAN SUKSES!" -ForegroundColor Green
+Write-Host "   SINKRONISASI PARALEL SELESAI DENGAN SUKSES!" -ForegroundColor Green
+Write-Host "   Waktu Unduh : $elapsedSec detik" -ForegroundColor Green
 Write-Host "   Semua berkas di $targetDir telah diperbarui." -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host ""
