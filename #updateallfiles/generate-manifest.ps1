@@ -51,24 +51,19 @@ $unifiedManifest = [PSCustomObject]@{
     files       = $fileList
 }
 
-# 1. Simpan manifest.json utama (gabungan)
+# Simpan manifest.json utama (gabungan versi + berkas)
 $manifestPath = Join-Path $scriptDir "manifest.json"
 $unifiedManifest | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $manifestPath -Encoding UTF8 -Force
 
-# 2. Simpan version.txt sebagai cadangan (backward compatibility untuk autounattend.xml)
-$versionPath = Join-Path $scriptDir "version.txt"
-$newVersion | Set-Content -Path $versionPath -NoNewline -Encoding UTF8 -Force
-
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host " Manifest & Versi Berhasil Digabungkan!" -ForegroundColor Green
+Write-Host " Manifest & Versi Berhasil Dibuat!" -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host " Versi Rilis  : $newVersion" -ForegroundColor White
 Write-Host " Total Berkas : $($fileList.Count)" -ForegroundColor White
 Write-Host " Total Ukuran : $totalMB MB" -ForegroundColor White
 Write-Host " Waktu Proses : $([math]::Round($sw.Elapsed.TotalSeconds, 2)) detik" -ForegroundColor White
-Write-Host " Berkas Utama : $manifestPath (Berisi versi & file)" -ForegroundColor Gray
-Write-Host " Berkas Cadang: $versionPath (Kompatibilitas installer)" -ForegroundColor Gray
+Write-Host " Berkas       : $manifestPath" -ForegroundColor Gray
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host "Silakan lakukan commit & push ke GitHub:" -ForegroundColor Yellow
 Write-Host "  git add ." -ForegroundColor Gray

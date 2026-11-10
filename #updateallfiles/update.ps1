@@ -103,7 +103,6 @@ Write-Host "Versi di Cloud   : $remoteVersion ($($remoteFiles.Count) berkas terd
 
 # 2. Cek versi lokal
 $localManifestFile = Join-Path $targetDir "#updateallfiles\manifest.json"
-$localVersionFile  = Join-Path $targetDir "#updateallfiles\version.txt"
 $localVersion = $null
 
 if (Test-Path $localManifestFile) {
@@ -113,10 +112,6 @@ if (Test-Path $localManifestFile) {
             $localVersion = $localData.version
         }
     } catch {}
-}
-
-if (-not $localVersion -and (Test-Path $localVersionFile)) {
-    $localVersion = (Get-Content $localVersionFile -Raw).Trim()
 }
 
 if ($localVersion) {
@@ -378,14 +373,9 @@ if ($deletedCount -gt 0) {
     Write-Host "Berhasil menghapus $deletedCount berkas usang dari $targetDir." -ForegroundColor Yellow
 }
 
-# 8. Simpan manifest lokal & perbarui version.txt
+# 8. Simpan manifest lokal (berisi versi dan index file)
 $localManifestPath = Join-Path $targetDir "#updateallfiles\manifest.json"
 $remoteData | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $localManifestPath -Encoding UTF8 -Force
-
-if ($remoteVersion -and $remoteVersion -ne "Cloud") {
-    $localVersionPath = Join-Path $targetDir "#updateallfiles\version.txt"
-    $remoteVersion | Set-Content -Path $localVersionPath -NoNewline -Encoding UTF8 -Force
-}
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green

@@ -141,7 +141,7 @@ Repositori ini sengaja disusun **ramping dan terarah** (*lightweight & essential
    * Skrip otomasi PowerShell dan Batch.
    * *Shortcut* terarah (`.lnk`) untuk kemudahan akses pengguna.
 2. **Koneksi Langsung ke Repositori GitHub**:  
-   Semua klien teknisi akan selalu sinkron dengan versi di GitHub. Ketika pengembang menambahkan *patch regedit* baru, memperbarui versi *tool*, atau mengubah skrip, cukup lakukan *commit & push* ke GitHub serta menaikkan nomor versi di `version.txt`. Klien cukup menjalankan updater untuk menerima seluruh pembaruan secara otomatis.
+   Semua klien teknisi akan selalu sinkron dengan versi di GitHub. Ketika pengembang menambahkan *patch regedit* baru, memperbarui versi *tool*, atau mengubah skrip, cukup jalankan `generate-manifest.ps1` lalu *commit & push* ke GitHub. Klien cukup menjalankan updater untuk menerima seluruh pembaruan secara otomatis.
 3. **Efisiensi Bandwidth dan Waktu Unduh**:  
    Dengan hanya menyertakan berkas yang wajib dan esensial, proses *download*, ekstraksi, dan penyusunan folder di komputer teknisi berlangsung sangat cepat.
 
@@ -153,7 +153,7 @@ Berikut ringkasan isi folder di dalam repositori:
 
 | Folder / Berkas | Fungsi dan Kegunaan |
 | :--- | :--- |
-| **`#updateallfiles/`** | Modul auto-update: berisi `update.ps1`, `manifest.json` (format terpadu: versi + index berkas & hash), `generate-manifest.ps1` (generator manifest otomatis), `version.txt` (cadangan kompatibilitas), serta skrip peluncur utama di subfolder `#master`. |
+| **`#updateallfiles/`** | Modul auto-update: berisi `update.ps1`, `manifest.json` (format terpadu: versi + index berkas & hash), `generate-manifest.ps1` (generator manifest otomatis), serta skrip peluncur utama di subfolder `#master`. |
 | **`@TEKNISI/`** | Berisi paket alat diagnosis teknisi: Antivirus, Hard Disk test, Partitioning, Data Recovery, System Info, dan Password reset. |
 | **`APPPortable/`** | Kumpulan *software portable* siap pakai (CPU-Z, GPU-Z, HD Sentinel, HWiNFO, HWMonitor, PuTTY, TrafficMonitor, TreeSize, WinBox Mikrotik, FanControl, dll). |
 | **`ChromeExtension/`** | Daftar domain pemblokir iklan (uBlock Origin) dan ekstensi pendukung peramban. |
@@ -175,7 +175,7 @@ Bagi pengelola yang ingin merilis pembaruan atau menambah berkas baru:
    ```powershell
    powershell -ExecutionPolicy Bypass -File ".\#updateallfiles\generate-manifest.ps1"
    ```
-   *Skrip ini akan otomatis menghitung hash MD5 seluruh berkas, memperbarui `#updateallfiles\manifest.json`, dan mengisi `#updateallfiles\version.txt` dengan nomor build waktu terkini secara otomatis.*
+   *Skrip ini akan otomatis menghitung hash MD5 seluruh berkas dan memperbarui versi serta daftar berkas di dalam `#updateallfiles\manifest.json` secara otomatis.*
 3. Lakukan *commit* dan *push* perubahan ke branch `main` di GitHub:
    ```bash
    git add .
