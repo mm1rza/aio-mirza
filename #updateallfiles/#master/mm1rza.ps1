@@ -8,21 +8,33 @@ function Get-UserChoices {
     param ([string]$raw)
     $clean = $raw.Trim()
 
-    # Format range: contoh "1-4" atau "2-4"
-    if ($clean -match '^([1-4])\s*-\s*([1-4])$') {
-        $start = [int]$matches[1]
-        $end   = [int]$matches[2]
-        return ($start..$end | ForEach-Object { "$_" })
-    }
-
-    # Format angka langsung: contoh "123", "14", "134", "1234"
+    # Format angka langsung rapat, contoh "134" atau "1234"
     if ($clean -match '^[1-4]+$') {
-        return ($clean.ToCharArray() | ForEach-Object { "$_" } | Select-Object -Unique)
+        return ($clean.ToCharArray() | ForEach-Object { "$_" } | Select-Object -Unique | Sort-Object)
     }
 
-    # Format pemisah koma / spasi: contoh "1, 2, 4", "1 3 4", "1,4"
-    $parts = $clean -split '[\s,;]+' | Where-Object { $_ -match '^[1-4]$' }
-    return ($parts | Select-Object -Unique)
+    $results = New-Object System.Collections.Generic.List[string]
+    $tokens = $clean -split '[\s,;]+' | Where-Object { $_ -ne '' }
+
+    foreach ($token in $tokens) {
+        # Format rentang di dalam token, contoh "3-4" atau "1-3"
+        if ($token -match '^([1-4])\s*-\s*([1-4])$') {
+            $start = [int]$matches[1]
+            $end   = [int]$matches[2]
+            $start..$end | ForEach-Object {
+                $d = "$_"
+                if (-not $results.Contains($d)) { $results.Add($d) }
+            }
+        } elseif ($token -match '^[1-4]$') {
+            if (-not $results.Contains($token)) { $results.Add($token) }
+        } elseif ($token -match '^[1-4]+$') {
+            $token.ToCharArray() | ForEach-Object {
+                $d = "$_"
+                if (-not $results.Contains($d)) { $results.Add($d) }
+            }
+        }
+    }
+    return ($results | Sort-Object)
 }
 
 Clear-Host
