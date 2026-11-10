@@ -1,5 +1,14 @@
 # Dokumentasi Lengkap AIO Mirza & Sistem Update GitHub
 
+## ⚡ Perintah Langsung untuk Test / Eksekusi Update
+Salin dan jalankan perintah PowerShell berikut (sebagai Administrator) untuk langsung menguji coba atau mengeksekusi skrip `update.ps1` dari GitHub:
+
+```powershell
+Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"iex (iwr 'https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/update.ps1' -UseBasicParsing)`"" -Verb RunAs
+```
+
+---
+
 Dokumentasi ini menjelaskan arsitektur repositori **AIO Mirza**, struktur folder, serta penjelasan teknis mendalam mengenai **sistem auto-update** berbasis PowerShell yang terhubung langsung ke GitHub.
 
 ---
