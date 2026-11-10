@@ -11,7 +11,10 @@
 
 $targetDir    = "C:\#mirza"
 $manifestUrl  = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/manifest.json"
-$threadCount  = 8
+
+# Otomatis deteksi CPU & tentukan thread optimal (minimal 8, maksimal 16)
+$cpuCores     = [Environment]::ProcessorCount
+$threadCount  = [math]::Min(16, [math]::Max(8, $cpuCores * 2))
 
 function Test-Internet {
     param ([string]$url = "https://raw.githubusercontent.com")
