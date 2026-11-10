@@ -106,6 +106,15 @@ $needsDownload = New-Object System.Collections.Generic.List[PSObject]
 $alreadyUpToDate = 0
 
 foreach ($item in $remoteManifest) {
+    # Lewati berkas dokumentasi & git jika masih tercantum di manifest cloud
+    if ($item.Path -eq 'README.md' -or 
+        $item.Path -like 'README/*' -or 
+        $item.Path -like '.git*' -or 
+        $item.Path -eq '.gitattributes' -or 
+        $item.Path -eq '.gitignore') {
+        continue
+    }
+
     $localFilePath = Join-Path $targetDir ($item.Path -replace '/', '\')
     
     if (Test-Path $localFilePath) {
@@ -175,6 +184,7 @@ foreach ($item in $needsDownload) {
 
     $downloadSuccess = $false
     $tempFile = "$localFilePath.downloading"
+    $corruptRetry = 0
 
     while (-not $downloadSuccess) {
         Wait-ForInternet -targetUrl $rawUrl
@@ -192,9 +202,15 @@ foreach ($item in $needsDownload) {
                 $downloadSuccess = $true
                 Write-Host "[OK]" -ForegroundColor Green
             } else {
+                $corruptRetry++
                 Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
-                Write-Host "[Corrupt, Mengulang...]" -ForegroundColor Red
-                Start-Sleep -Seconds 1
+                if ($corruptRetry -ge 3) {
+                    Write-Host "[Dilewati (Ukuran remote berbeda)]" -ForegroundColor Yellow
+                    break
+                } else {
+                    Write-Host "[Mengulang...]" -ForegroundColor Red
+                    Start-Sleep -Seconds 1
+                }
             }
         } catch {
             Remove-Item $tempFile -Force -ErrorAction SilentlyContinue

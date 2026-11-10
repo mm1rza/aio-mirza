@@ -8,28 +8,22 @@ Write-Host "==========================================================" -Foregro
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $rootDir = (Get-Item $scriptDir).Parent.FullName
 
-$excludePatterns = @(
-    '\\.git\\',
-    '\\README\\',
-    'README\\.md$',
-    '\\.gitattributes$',
-    '\\.gitignore$',
-    '#updateallfiles\\\\manifest\\.json$'
-)
-
 Write-Host "Memindai seluruh berkas di: $rootDir..." -ForegroundColor Yellow
 $sw = [System.Diagnostics.Stopwatch]::StartNew()
 
 $allFiles = Get-ChildItem -Path $rootDir -Recurse -File | Where-Object {
-    $full = $_.FullName
-    $exclude = $false
-    foreach ($p in $excludePatterns) {
-        if ($full -match $p) { $exclude = $true; break }
+    $rel = $_.FullName.Substring($rootDir.Length + 1).Replace('\', '/')
+    # Abaikan berkas dokumentasi, git, dan manifest generator
+    if ($rel -match '^(README\.md|README/|\.git/|\.gitattributes|\.gitignore|#updateallfiles/manifest\.json)' -or 
+        $_.Name -eq 'README.md' -or 
+        $_.Name -eq '.gitattributes' -or 
+        $_.Name -eq '.gitignore') {
+        return $false
     }
-    -not $exclude
+    return $true
 }
 
-Write-Host "Ditemukan $($allFiles.Count) berkas. Menghitung MD5 Hash..." -ForegroundColor Yellow
+Write-Host "Ditemukan $($allFiles.Count) berkas valid (README & Git dilewati). Menghitung MD5 Hash..." -ForegroundColor Yellow
 
 $manifest = foreach ($f in $allFiles) {
     $relPath = $f.FullName.Substring($rootDir.Length + 1).Replace('\', '/')
