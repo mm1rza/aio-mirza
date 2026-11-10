@@ -405,10 +405,25 @@ $remoteData | ConvertTo-Json -Depth 5 -Compress | Set-Content -Path $localManife
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host "   SINKRONISASI PARALEL SELESAI DENGAN SUKSES!" -ForegroundColor Green
-Write-Host "   Versi Terpasang : $remoteVersion" -ForegroundColor Green
-Write-Host "   Waktu Unduh     : $elapsedSec detik" -ForegroundColor Green
-Write-Host "   Semua berkas di $targetDir telah diperbarui." -ForegroundColor Green
+Write-Host "                   SINKRONISASI SUKSES                    " -ForegroundColor Green
+Write-Host "==========================================================" -ForegroundColor Green
+Write-Host " Versi Terpasang : $remoteVersion" -ForegroundColor White
+Write-Host " Waktu Unduh     : $elapsedSec detik" -ForegroundColor White
+Write-Host " Semua berkas di $targetDir telah diperbarui." -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host ""
-Read-Host "Tekan Enter untuk menutup jendela..."
+
+# Hitung mundur 30 detik: otomatis tutup atau langsung keluar jika ditekan sembarang tombol
+try {
+    for ($sec = 30; $sec -gt 0; $sec--) {
+        if ([Console]::KeyAvailable) {
+            [Console]::ReadKey($true) | Out-Null
+            break
+        }
+        Write-Host -NoNewline "`rJendela tertutup otomatis dalam $sec detik... (Tekan sembarang tombol untuk keluar)   " -ForegroundColor Gray
+        Start-Sleep -Seconds 1
+    }
+} catch {
+    Start-Sleep -Seconds 5
+}
+Write-Host ""
