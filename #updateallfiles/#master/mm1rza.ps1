@@ -75,68 +75,9 @@ foreach ($choice in $selectedChoices) {
         }
         "3" {
             Write-Host ""
-            Write-Host ">>> [3/3] Mengunduh Extension Browser (Force Replace)..." -ForegroundColor Cyan
-            Write-Host "==========================================================" -ForegroundColor Cyan
-
-            $extBaseDir = "C:\#mirza\ChromeExtension"
-            if (-not (Test-Path $extBaseDir)) {
-                New-Item -ItemType Directory -Path $extBaseDir -Force | Out-Null
-            }
-
-            $extensions = @(
-                @{ Name = "IPvFoo"; Repo = "https://github.com/mm1rza/ipvfoo" },
-                @{ Name = "tiktok-hd-extension"; Repo = "https://github.com/mm1rza/tiktok-hd-extension" }
-            )
-
-            foreach ($ext in $extensions) {
-                $name = $ext.Name
-                $targetPath = Join-Path $extBaseDir $name
-                $tempZip = Join-Path $env:TEMP "$name.zip"
-                $tempExtract = Join-Path $env:TEMP "$name-extract"
-
-                Write-Host "Mengunduh ekstensi $name dari $($ext.Repo)..." -ForegroundColor Yellow
-
-                $wc = New-Object System.Net.WebClient
-                $downloaded = $false
-                $lastErr = ""
-
-                foreach ($branch in @("main", "master")) {
-                    try {
-                        $zipUrl = "$($ext.Repo)/archive/refs/heads/$branch.zip"
-                        $wc.DownloadFile($zipUrl, $tempZip)
-                        $downloaded = $true
-                        break
-                    } catch {
-                        $lastErr = $_.Exception.Message
-                    }
-                }
-
-                if ($downloaded -and (Test-Path $tempZip)) {
-                    if (Test-Path $tempExtract) { Remove-Item $tempExtract -Recurse -Force }
-                    Expand-Archive -Path $tempZip -DestinationPath $tempExtract -Force
-
-                    $extractedFolder = Get-ChildItem -Path $tempExtract -Directory | Select-Object -First 1
-
-                    if ($extractedFolder) {
-                        # Wajib REPLACE: hapus folder lama jika sudah ada lalu ganti dengan versi terbaru
-                        if (Test-Path $targetPath) {
-                            Write-Host "Menghapus versi lama di $targetPath (REPLACE)..." -ForegroundColor Gray
-                            Remove-Item $targetPath -Recurse -Force
-                        }
-                        Move-Item -Path $extractedFolder.FullName -Destination $targetPath -Force
-                        Write-Host "[$name] Berhasil dipasang (REPLACE) ke: $targetPath" -ForegroundColor Green
-                    }
-
-                    Remove-Item $tempZip -Force -ErrorAction SilentlyContinue
-                    if (Test-Path $tempExtract) { Remove-Item $tempExtract -Recurse -Force -ErrorAction SilentlyContinue }
-                } else {
-                    Write-Host "[$name] Gagal mengunduh: $lastErr (Periksa apakah repo bersifat Public / URL benar)" -ForegroundColor Red
-                }
-            }
-
-            Write-Host "==========================================================" -ForegroundColor Green
-            Write-Host " Selesai memproses ekstensi browser." -ForegroundColor Green
-            Write-Host "==========================================================" -ForegroundColor Green
+            Write-Host ">>> [3/3] Menjalankan Installer Extension Browser..." -ForegroundColor Cyan
+            $extUrl = 'https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/extensionbrowser.ps1'
+            Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"iex (iwr '$extUrl' -UseBasicParsing)`"" -Verb RunAs
         }
     }
 }

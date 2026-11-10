@@ -83,7 +83,7 @@ Perintah di atas akan memanggil skrip peluncur (`mm1rza.ps1`) yang menyajikan 3 
 2. **Download & Sinkronisasi File AIO ke `C:\#mirza`**  
    Menjalankan skrip updater paralel (`update.ps1`) dengan hak akses Administrator (*Elevated RunAs*).
 3. **Extension Browser (IPvFoo & TikTok HD Extension)**  
-   Mengunduh repositori ekstensi peramban dari `https://github.com/mm1rza/ipvfoo` dan `https://github.com/mm1rza/tiktok-hd-extension` lalu memasangnya ke `C:\#mirza\ChromeExtension` dengan mode wajib ganti (*force replace*).
+   Menjalankan skrip modular independen (`extensionbrowser.ps1`) untuk mengunduh ekstensi peramban dari `https://github.com/mm1rza/ipvfoo` dan `https://github.com/mm1rza/tiktok-hd-extension` lalu memasangnya ke `C:\#mirza\ChromeExtension` dengan mode wajib ganti (*force replace*).
 
 ---
 
