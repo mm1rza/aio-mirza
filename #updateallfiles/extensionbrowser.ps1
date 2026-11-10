@@ -131,7 +131,7 @@ foreach ($ext in $extensions) {
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
-Write-Host "           SELESAI MEMPROSES EXTENSION BROWSER            " -ForegroundColor Green
+Write-Host "                   SINKRONISASI SUKSES                    " -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host " Berhasil Dipasang : $successCount dari $($extensions.Count) ekstensi" -ForegroundColor White
 Write-Host " Lokasi Folder     : $extBaseDir" -ForegroundColor White

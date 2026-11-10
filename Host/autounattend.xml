@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
-	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&GeoLocation=111&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&BypassNetworkCheck=true&HidePowerShellWindows=true&ComputerNameMode=Custom&ComputerName=USER-PC&CompactOsMode=Default&TimeZoneMode=Explicit&TimeZone=SE+Asia+Standard+Time&PartitionMode=Interactive&DiskAssertionMode=Skip&WindowsEditionMode=Generic&WindowsEdition=pro&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=Unattended&AccountName0=USER&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AccountName1=TAMU&AccountDisplayName1=&AccountPassword1=&AccountGroup1=Users&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Disabled&HideFiles=Hidden&ClassicContextMenu=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Custom&TaskbarIconsXml=%3CLayoutModificationTemplate+xmlns%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FLayoutModification%22+xmlns%3Adefaultlayout%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FFullDefaultLayout%22+xmlns%3Astart%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FStartLayout%22+xmlns%3Ataskbar%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FTaskbarLayout%22+Version%3D%221%22%3E%0D%0A++%3CCustomTaskbarLayoutCollection+PinListPlacement%3D%22Replace%22%3E%0D%0A++++%3Cdefaultlayout%3ATaskbarLayout%3E%0D%0A++++++%3Ctaskbar%3ATaskbarPinList%3E%0D%0A++++++++%3Ctaskbar%3ADesktopApp+DesktopApplicationID%3D%22Microsoft.Windows.Explorer%22+%2F%3E%0D%0A++++++%3C%2Ftaskbar%3ATaskbarPinList%3E%0D%0A++++%3C%2Fdefaultlayout%3ATaskbarLayout%3E%0D%0A++%3C%2FCustomTaskbarLayoutCollection%3E%0D%0A%3C%2FLayoutModificationTemplate%3E&DisableWidgets=true&LeftTaskbar=true&HideTaskViewButton=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Empty&DisableDefender=true&DisableWindowsUpdate=true&DisableUac=true&DisableSac=true&DisableSmartScreen=true&DisableFastStartup=true&DisableSystemRestore=true&EnableLongPaths=true&EnableRemoteDesktop=true&AllowPowerShellScripts=true&DisableLastAccess=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&MakeEdgeUninstallable=true&DeleteWindowsOld=true&EffectsMode=Default&DesktopIconsMode=Custom&IconRecycleBin=true&StartFoldersMode=Custom&StartFolderDownloads=true&StartFolderSettings=true&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Configure&CapsLockInitial=Off&CapsLockBehavior=Toggle&NumLockInitial=On&NumLockBehavior=Toggle&ScrollLockInitial=Off&ScrollLockBehavior=Toggle&StickyKeysMode=Disabled&ColorMode=Custom&SystemColorTheme=Dark&AppsColorTheme=Dark&AccentColor=%230078d4&EnableTransparency=true&WallpaperMode=Default&LockScreenMode=Default&Remove3DViewer=true&RemoveBingSearch=true&RemoveClipchamp=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveInternetExplorer=true&RemoveMailCalendar=true&RemoveMaps=true&RemoveMixedReality=true&RemoveZuneVideo=true&RemoveNews=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemoveOutlook=true&RemovePaint3D=true&RemovePeople=true&RemovePowerAutomate=true&RemoveQuickAssist=true&RemoveSkype=true&RemoveSolitaire=true&RemoveStickyNotes=true&RemoveTeams=true&RemoveGetStarted=true&RemoveToDo=true&RemoveWallet=true&RemoveWeather=true&RemoveWordPad=true&RemoveYourPhone=true&UserOnceScript0=Windows+Registry+Editor+Version+5.00%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSOFTWARE%5CClasses%5CTypelib%5C%7B8cec5860-07a1-11d9-b15e-000d56bfe6ee%7D%5C1.0%5C0%5Cwin32%5D%0D%0A%40%3D%22%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSOFTWARE%5CClasses%5CTypelib%5C%7B8cec5860-07a1-11d9-b15e-000d56bfe6ee%7D%5C1.0%5C0%5Cwin64%5D%0D%0A%40%3D%22%22%0D%0A%0D%0A%5BHKEY_USERS%5C.DEFAULT%5CControl+Panel%5CDesktop%5D%0D%0A%22AutoEndTasks%22%3D%221%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CCLSID%5C%7B018D5C66-4533-4307-9B53-224DE2ED1FE6%7D%5D%0D%0A%22System.IsPinnedToNameSpaceTree%22%3Ddword%3A00000000%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CWow6432Node%5CCLSID%5C%7B018D5C66-4533-4307-9B53-224DE2ED1FE6%7D%5D%0D%0A%22System.IsPinnedToNameSpaceTree%22%3Ddword%3A00000000%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.jpg%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.jpeg%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.gif%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.png%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.bmp%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.tiff%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CClasses%5C.ico%5D%0D%0A%40%3D%22PhotoViewer.FileAssoc.Tiff%22%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CExplorer%5D%0D%0A%22HubMode%22%3Ddword%3A00000001%0D%0A%0D%0A%5B-HKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CExplorer%5CMyComputer%5CNameSpace%5C%7B0DB7E03F-FC29-4DC6-9020-FF41B59E513A%7D%5D%0D%0A%0D%0A%5B-HKEY_LOCAL_MACHINE%5CSOFTWARE%5CWOW6432Node%5CMicrosoft%5CWindows%5CCurrentVersion%5CExplorer%5CMyComputer%5CNameSpace%5C%7B0DB7E03F-FC29-4DC6-9020-FF41B59E513A%7D%5D%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CPolicies%5CMicrosoft%5CWindows+NT%5CPrinters%5CRPC%5D%0D%0A%22RpcUseNamedPipeProtocol%22%3Ddword%3A00000001%0D%0A%22RpcOverTcp%22%3Ddword%3A00000000%0D%0A%22RpcOverNamedPipes%22%3Ddword%3A00000001%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSYSTEM%5CCurrentControlSet%5CControl%5CPrint%5D%0D%0A%22RpcAuthnLevelPrivacyEnabled%22%3Ddword%3A00000000%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSYSTEM%5CCurrentControlSet%5CServices%5CAFD%5CParameters%5D%0D%0A%22FastSendDatagramThreshold%22%3Ddword%3A00064000%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindowsUpdate%5CUX%5CSettings%5D%0D%0A%22FlightSettingsMaxPauseDays%22%3Ddword%3A00001c84%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CPolicies%5CSystem%5D%0D%0A%22EnableLUA%22%3Ddword%3A00000001%0D%0A%0D%0A%5B-HKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CExplorer%5CDesktop%5CNameSpace%5C%7Be88865ea-0e1c-4e20-9aa6-edcd0212c87c%7D%5D%0D%0A%5B-HKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CExplorer%5CDesktop%5CNameSpace%5C%7Bf874310e-b6b7-47dc-bc84-b9e6b38f5903%7D%5D%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CPolicies%5CMicrosoft%5CWindows%5CExplorer%5D%0D%0A%22NoAutoplay%22%3Ddword%3A00000001%0D%0A%22NoDriveTypeAutoRun%22%3Ddword%3A000000FF%0D%0A%0D%0A%5BHKEY_CURRENT_USER%5CSoftware%5CMicrosoft%5CWindows%5CCurrentVersion%5CPolicies%5CExplorer%5D%0D%0A%22NoDriveTypeAutoRun%22%3Ddword%3A000000FF%0D%0A%0D%0A%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CPolicies%5CMicrosoft%5CWindows%5CPsched%5D%0D%0A%22NonBestEffortLimit%22%3Ddword%3A00000000%0D%0A%0D%0A&UserOnceScriptType0=Reg&UserOnceScript1=%24localVersionFile+%3D+%22C%3A%5C%23mirza%5C%23updateallfiles%5Cversion.txt%22%0D%0A%24remoteVersionUrl+%3D+%22https%3A%2F%2Fraw.githubusercontent.com%2Fmm1rza%2Faio-mirza%2Fmain%2F%2523updateallfiles%2Fversion.txt%22%0D%0A%0D%0Afunction+Get-RemoteVersion+%7B%0D%0A++++param+%28%24url%29%0D%0A++++%24wc+%3D+New-Object+net.webclient%0D%0A++++return+%24wc.DownloadString%28%24url%29%0D%0A%7D%0D%0A%0D%0Aif+%28Test-Path+%24localVersionFile%29+%7B%0D%0A++++%24localVersion+%3D+Get-Content+%24localVersionFile+-Raw%0D%0A++++Write-Host+%22Versi+di+komputer+saat+ini+%3A+%24localVersion%22%0D%0A%7D+else+%7B%0D%0A++++Write-Host+%22File+tidak+ditemukan.%22%0D%0A++++%24localVersion+%3D+%22%22%0D%0A%7D%0D%0A%0D%0A%24remoteVersion+%3D+Get-RemoteVersion+%24remoteVersionUrl%0D%0AWrite-Host+%22Versi+di+cloud+%3A+%24remoteVersion%22%0D%0A%0D%0Aif+%28%24localVersion+-eq+%24remoteVersion%29+%7B%0D%0A++++Write-Host+%22Versi+di+komputer+anda+sudah+terbaru.%22%0D%0A++++%24response+%3D+Read-Host+%22Apakah+Anda+ingin+memaksa+update%3F+%28Y%2FN%29%22%0D%0A++++if+%28%24response+-eq+%27Y%27%29+%7B%0D%0A++++++++Write-Host+%22Memaksa+update...%22%0D%0A++++%7D+else+%7B%0D%0A++++++++Write-Host+%22Tidak+ada+update+dilakukan.%22%0D%0A++++++++exit%0D%0A++++%7D%0D%0A%7D+else+%7B%0D%0A++++Write-Host+%22Update+tersedia.%22%0D%0A%7D%0D%0A%0D%0AWrite-Host+%22Update+Tersedia.+Mengupdate+files...%22%0D%0A%0D%0A%24folder+%3D+%22C%3A%5C%23mirza%22%0D%0Aif+%28Test-Path+%24folder%29+%7B%0D%0A++++Write-Host+%22Menghapus+folder+dan+subfolder%3A+%24folder%22%0D%0A++++Remove-Item+%24folder+-Recurse+-Force%0D%0A%7D%0D%0A%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0AWrite-Host+%22+%22%0D%0A%0D%0AClear-Host%0D%0A%0D%0A%24downloadUrl+%3D+%22https%3A%2F%2Fgithub.com%2Fmm1rza%2Faio-mirza%2Farchive%2Frefs%2Fheads%2Fmain.zip%22%0D%0A%24localPath+%3D+%22C%3A%5C%23mirza%22%0D%0A%24zipFilePath+%3D+%22C%3A%5C%23mirza%5Caio-mirza.zip%22%0D%0A%0D%0Aif+%28-Not+%28Test-Path+%24localPath%29%29+%7B%0D%0A++++New-Item+-ItemType+Directory+-Path+%24localPath+-Force%0D%0A%7D%0D%0AWrite-Output+%22Download+file+dari+%24downloadUrl...%22%0D%0A%24wc+%3D+New-Object+net.webclient%0D%0A%24wc.DownloadFile%28%24downloadUrl%2C+%24zipFilePath%29%0D%0AWrite-Output+%22Extract+file+ke+%24localPath...%22%0D%0AExpand-Archive+-Path+%24zipFilePath+-DestinationPath+%24localPath+-Force%0D%0AWrite-Output+%22Membersihkan+file...%22%0D%0ARemove-Item+%24zipFilePath%0D%0AWrite-Output+%22Download+and+extract+selesai.%22%0D%0A%0D%0A%24sumber+%3D+%22C%3A%5C%23mirza%5Caio-mirza-main%22%0D%0A%24tujuan+%3D+%22C%3A%5C%23mirza%22%0D%0Aif+%28-not+%28Test-Path+-Path+%24tujuan%29%29+%7B%0D%0A++++Write-Host+%22Folder+tujuan+tidak+ada.+Membuat+folder+tujuan...%22%0D%0A++++New-Item+-Path+%24tujuan+-ItemType+Directory%0D%0A%7D+else+%7B%0D%0A++++Write-Host+%22Folder+tujuan+sudah+ada.%22%0D%0A%7D%0D%0AWrite-Host+%22Memindahkan+file+dan+folder+dari+%24sumber+ke+%24tujuan...%22%0D%0AGet-ChildItem+-Path+%24sumber+-Recurse+%7C+ForEach-Object+%7B%0D%0A++++%24targetPath+%3D+Join-Path+-Path+%24tujuan+-ChildPath+%24_.FullName.Substring%28%24sumber.Length%29%0D%0A++++if+%28%24_.PSIsContainer%29+%7B%0D%0A++++++++if+%28-not+%28Test-Path+-Path+%24targetPath%29%29+%7B%0D%0A++++++++++++Write-Host+%22Membuat+folder%3A+%24targetPath%22%0D%0A++++++++++++New-Item+-Path+%24targetPath+-ItemType+Directory%0D%0A++++++++%7D%0D%0A++++%7D+else+%7B%0D%0A++++++++Write-Host+%22Memindahkan+file%3A+%24_.FullName+ke+%24targetPath%22%0D%0A++++++++Move-Item+-Path+%24_.FullName+-Destination+%24targetPath+-Force%0D%0A++++%7D%0D%0A%7D%0D%0AWrite-Host+%22Menghapus+folder+sumber...%22%0D%0ARemove-Item+-Path+%24sumber+-Recurse+-Force%0D%0A%0D%0A%24files+%3D+%40%28%22C%3A%5C%23mirza%5CREADME.md%22%2C+%22C%3A%5C%23mirza%5C.gitattributes%22%29%0D%0Aforeach+%28%24file+in+%24files%29+%7B%0D%0A++++if+%28Test-Path+%24file%29+%7B%0D%0A++++++++Write-Host+%22Menghapus+file%3A+%24file%22%0D%0A++++++++Remove-Item+%24file+-Force%0D%0A++++%7D%0D%0A%7D%0D%0AWrite-Host+%22Update+selesai.%22&UserOnceScriptType1=Ps1&WdacMode=Skip-->
+	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&GeoLocation=111&PEMode=Default&WindowsEditionMode=Generic&WindowsEdition=pro&BypassRequirementsCheck=true&ProcessorArchitecture=amd64&BypassNetworkCheck=true&HidePowerShellWindows=true&ComputerNameMode=Custom&ComputerName=USER-PC&TimeZoneMode=Explicit&TimeZone=SE+Asia+Standard+Time&UserAccountMode=Unattended&AccountName0=USER&AccountDisplayName0=&AccountPassword0=&AccountGroup0=Administrators&AccountName1=TAMU&AccountDisplayName1=&AccountPassword1=&AccountGroup1=Users&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Disabled&HideFiles=Hidden&ClassicContextMenu=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Custom&TaskbarIconsXml=%3CLayoutModificationTemplate+xmlns%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FLayoutModification%22+xmlns%3Adefaultlayout%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FFullDefaultLayout%22+xmlns%3Astart%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FStartLayout%22+xmlns%3Ataskbar%3D%22http%3A%2F%2Fschemas.microsoft.com%2FStart%2F2014%2FTaskbarLayout%22+Version%3D%221%22%3E%0D%0A++%3CCustomTaskbarLayoutCollection+PinListPlacement%3D%22Replace%22%3E%0D%0A++++%3Cdefaultlayout%3ATaskbarLayout%3E%0D%0A++++++%3Ctaskbar%3ATaskbarPinList%3E%0D%0A++++++++%3Ctaskbar%3ADesktopApp+DesktopApplicationID%3D%22Microsoft.Windows.Explorer%22+%2F%3E%0D%0A++++++%3C%2Ftaskbar%3ATaskbarPinList%3E%0D%0A++++%3C%2Fdefaultlayout%3ATaskbarLayout%3E%0D%0A++%3C%2FCustomTaskbarLayoutCollection%3E%0D%0A%3C%2FLayoutModificationTemplate%3E&DisableWidgets=true&LeftTaskbar=true&HideTaskViewButton=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Empty&DisableWindowsUpdate=true&DisableUac=true&DisableSac=true&DisableSmartScreen=true&DisableFastStartup=true&DisableSystemRestore=true&EnableLongPaths=true&EnableRemoteDesktop=true&AllowPowerShellScripts=true&DisableLastAccess=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&HideEdgeFre=true&DisableEdgeStartupBoost=true&MakeEdgeUninstallable=true&DeleteWindowsOld=true&EffectsMode=Default&DeleteEdgeDesktopIcon=true&DesktopIconsMode=Custom&StartFoldersMode=Custom&StartFolderDownloads=true&StartFolderSettings=true&CoreIsolationMode=Enabled&WifiMode=Skip&ExpressSettings=DisableAll&LockKeysMode=Configure&CapsLockInitial=Off&CapsLockBehavior=Toggle&NumLockInitial=On&NumLockBehavior=Toggle&ScrollLockInitial=Off&ScrollLockBehavior=Toggle&StickyKeysMode=Disabled&ColorMode=Custom&SystemColorTheme=Dark&AppsColorTheme=Dark&AccentColor=%230078d4&EnableTransparency=true&WallpaperMode=Default&LockScreenMode=Default&Remove3DViewer=true&RemoveBingSearch=true&RemoveClipchamp=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGameAssist=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveInternetExplorer=true&RemoveMailCalendar=true&RemoveMaps=true&RemoveMixedReality=true&RemoveZuneVideo=true&RemoveNews=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemoveOutlook=true&RemovePaint3D=true&RemovePeople=true&RemovePowerAutomate=true&RemoveQuickAssist=true&RemoveSkype=true&RemoveSolitaire=true&RemoveStickyNotes=true&RemoveTeams=true&RemoveGetStarted=true&RemoveToDo=true&RemoveWallet=true&RemoveWeather=true&RemoveWordPad=true&RemoveXboxApps=true&RemoveYourPhone=true&UserOnceScript0=Start-Process+powershell+-Verb+RunAs+-ArgumentList+%22-Command+%28Invoke-WebRequest+-Uri+%27https%3A%2F%2Fraw.githubusercontent.com%2Fmm1rza%2Faio-mirza%2Frefs%2Fheads%2Fmain%2FRegedit%2Fallinout.reg%27+-UseBasicParsing%29.Content+%7C+Out-File+-FilePath+%24env%3ATEMP%5Callinout.reg+-Encoding+Unicode%3B+reg+import+%24env%3ATEMP%5Callinout.reg%22%0D%0A&UserOnceScriptType0=Ps1&UserOnceScript1=Start-Process+powershell+-ArgumentList+%22-NoProfile+-ExecutionPolicy+Bypass+-Command+%60%22iex+%28iwr+%27https%3A%2F%2Fraw.githubusercontent.com%2Fmm1rza%2Faio-mirza%2Fmain%2F%2523updateallfiles%2Fupdate.ps1%27+-UseBasicParsing%29%60%22%22+-Verb+RunAs&UserOnceScriptType1=Ps1&AppLockerMode=Skip-->
 	<settings pass="offlineServicing"></settings>
 	<settings pass="windowsPE">
 		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
@@ -28,58 +28,6 @@
 					<Order>3</Order>
 					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassRAMCheck /t REG_DWORD /d 1 /f</Path>
 				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>4</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:WScript.Echo ^"Scanning for newly created SYSTEM registry hive file to disable Windows Defender services...^"&amp;echo:Set fso = CreateObject(^"Scripting.FileSystemObject^"^))"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>5</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:Set existing = CreateObject(^"Scripting.Dictionary^"^)&amp;echo:Function Execute(command^)&amp;echo:WScript.Echo ^"Running command '^" + command + ^"'^"&amp;echo:Set shell = CreateObject(^"WScript.Shell^"^))"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>6</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:Set exec = shell.Exec(command^)&amp;echo:Do While exec.Status = 0&amp;echo:WScript.Sleep 100&amp;echo:Loop&amp;echo:WScript.Echo exec.StdOut.ReadAll&amp;echo:WScript.Echo exec.StdErr.ReadAll&amp;echo:Execute = exec.ExitCode)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>7</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:End Function&amp;echo:Function FindHiveFiles&amp;echo:Set FindHiveFiles = CreateObject(^"Scripting.Dictionary^"^)&amp;echo:For Each drive In fso.Drives&amp;echo:If drive.IsReady And drive.DriveLetter ^&lt;^&gt; ^"X^" Then)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>8</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:For Each folder In Array(^"$Windows.~BT\NewOS\Windows^", ^"Windows^"^)&amp;echo:file = fso.BuildPath(fso.BuildPath(drive.RootFolder, folder^), ^"System32\config\SYSTEM^"^))"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>9</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:If fso.FileExists(file^) And fso.FileExists(file + ^".LOG1^"^) And fso.FileExists(file + ^".LOG2^"^) Then&amp;echo:FindHiveFiles.Add file, Nothing&amp;echo:End If&amp;echo:Next&amp;echo:End If&amp;echo:Next&amp;echo:End Function)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>10</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:For Each file In FindHiveFiles&amp;echo:WScript.Echo ^"Will ignore file at '^" + file + ^"' because it was already present when Windows Setup started.^"&amp;echo:existing.Add file, Nothing&amp;echo:Next&amp;echo:Do)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>11</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:For Each file In FindHiveFiles&amp;echo:If Not existing.Exists(file^) Then&amp;echo:ret = 1&amp;echo:While ret ^&gt; 0&amp;echo:WScript.Sleep 500&amp;echo:ret = Execute(^"reg.exe LOAD HKLM\mount ^" + file^)&amp;echo:Wend)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>12</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:For Each service In Array(^"Sense^", ^"WdBoot^", ^"WdFilter^", ^"WdNisDrv^", ^"WdNisSvc^", ^"WinDefend^"^))"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>13</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:ret = Execute(^"reg.exe ADD HKLM\mount\ControlSet001\Services\^" + service + ^" /v Start /t REG_DWORD /d 4 /f^"^)&amp;echo:Next&amp;echo:ret = Execute(^"reg.exe UNLOAD HKLM\mount^"^))"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>14</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:WScript.Echo ^"Found and successfully modified SYSTEM registry hive file at '^" + file + ^"'. This window will now close.^"&amp;echo:WScript.Sleep 5000&amp;echo:Exit Do&amp;echo:End If&amp;echo:WScript.Sleep 1000&amp;echo:Next)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>15</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\defender.vbs" (echo:Loop)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>16</Order>
-					<Path>cmd.exe /c "start /MIN cscript.exe //E:vbscript X:\defender.vbs"</Path>
-				</RunSynchronousCommand>
 			</RunSynchronous>
 		</component>
 	</settings>
@@ -93,11 +41,11 @@
 			<RunSynchronous>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>1</Order>
-					<Path>powershell.exe -WindowStyle Hidden -NoProfile -Command "$xml = [xml]::new(); $xml.Load('C:\Windows\Panther\unattend.xml'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"</Path>
+					<Path>powershell.exe -WindowStyle "Hidden" -NoProfile -Command "$xml = [xml]::new(); $xml.Load('C:\Windows\Panther\unattend.xml'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>2</Order>
-					<Path>powershell.exe -WindowStyle Hidden -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\Specialize.ps1' -Raw | Invoke-Expression;"</Path>
+					<Path>powershell.exe -WindowStyle "Hidden" -ExecutionPolicy "Unrestricted" -NoProfile -File "C:\Windows\Setup\Scripts\Specialize.ps1"</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>3</Order>
@@ -105,7 +53,7 @@
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>4</Order>
-					<Path>powershell.exe -WindowStyle Hidden -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\DefaultUser.ps1' -Raw | Invoke-Expression;"</Path>
+					<Path>powershell.exe -WindowStyle "Hidden" -ExecutionPolicy "Unrestricted" -NoProfile -File "C:\Windows\Setup\Scripts\DefaultUser.ps1"</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>5</Order>
@@ -164,12 +112,18 @@
 			<FirstLogonCommands>
 				<SynchronousCommand wcm:action="add">
 					<Order>1</Order>
-					<CommandLine>powershell.exe -WindowStyle Hidden -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\FirstLogon.ps1' -Raw | Invoke-Expression;"</CommandLine>
+					<CommandLine>powershell.exe -WindowStyle "Hidden" -ExecutionPolicy "Unrestricted" -NoProfile -File "C:\Windows\Setup\Scripts\FirstLogon.ps1"</CommandLine>
 				</SynchronousCommand>
 			</FirstLogonCommands>
 		</component>
 	</settings>
 	<Extensions xmlns="https://schneegans.de/windows/unattend-generator/">
+		<Build>
+			<Commit>
+				<Hash>8fdf1b99af95977ea38f4922662964dc6324b0df</Hash>
+				<GitHubUrl>https://github.com/cschneegans/unattend-generator/commit/8fdf1b99af95977ea38f4922662964dc6324b0df</GitHubUrl>
+			</Commit>
+		</Build>
 		<ExtractScript>
 param(
     [xml] $Document
@@ -187,7 +141,7 @@ foreach( $file in $Document.unattend.Extensions.File ) {
     [System.IO.File]::WriteAllBytes( $path, $bytes );
 }
 		</ExtractScript>
-		<File path="C:\Windows\Setup\Scripts\RemovePackages.ps1">
+		<File path="C:\Windows\Setup\Scripts\RemovePackage.ps1">
 $selectors = @(
 	'Microsoft.Microsoft3DViewer';
 	'Microsoft.BingSearch';
@@ -197,6 +151,7 @@ $selectors = @(
 	'Microsoft.Windows.DevHome';
 	'MicrosoftCorporationII.MicrosoftFamily';
 	'Microsoft.WindowsFeedbackHub';
+	'Microsoft.Edge.GameAssist';
 	'Microsoft.GetHelp';
 	'Microsoft.Getstarted';
 	'microsoft.windowscommunicationsapps';
@@ -218,6 +173,13 @@ $selectors = @(
 	'Microsoft.Todos';
 	'Microsoft.Wallet';
 	'Microsoft.BingWeather';
+	'Microsoft.Xbox.TCUI';
+	'Microsoft.XboxApp';
+	'Microsoft.XboxGameOverlay';
+	'Microsoft.XboxGamingOverlay';
+	'Microsoft.XboxIdentityProvider';
+	'Microsoft.XboxSpeechToTextOverlay';
+	'Microsoft.GamingApp';
 	'Microsoft.YourPhone';
 	'Microsoft.ZuneVideo';
 );
@@ -238,30 +200,26 @@ $removeCommand = {
   }
 };
 $type = 'Package';
-$logfile = 'C:\Windows\Setup\Scripts\RemovePackages.log';
-&amp; {
-	$installed = &amp; $getCommand;
-	foreach( $selector in $selectors ) {
-		$result = [ordered] @{
-			Selector = $selector;
-		};
-		$found = $installed | Where-Object -FilterScript $filterCommand;
-		if( $found ) {
-			$result.Output = $found | &amp; $removeCommand;
-			if( $? ) {
-				$result.Message = "$type removed.";
-			} else {
-				$result.Message = "$type not removed.";
-				$result.Error = $Error[0];
-			}
+$installed = &amp; $getCommand;
+foreach( $selector in $selectors ) {
+	$result = [ordered] @{
+		Selector = $selector;
+	};
+	if( $found = $installed | Where-Object -FilterScript $filterCommand ) {
+		$result.Output = $found | &amp; $removeCommand;
+		if( $? ) {
+			$result.Message = "${type} removed.";
 		} else {
-			$result.Message = "$type not installed.";
+			$result.Message = "${type} not removed.";
+			$result.Error = $Error[0];
 		}
-		$result | ConvertTo-Json -Depth 3 -Compress;
+	} else {
+		$result.Message = "${type} not installed.";
 	}
-} *&gt;&amp;1 &gt;&gt; $logfile;
+	$result | ConvertTo-Json -Depth 3 -Compress;
+}
 		</File>
-		<File path="C:\Windows\Setup\Scripts\RemoveCapabilities.ps1">
+		<File path="C:\Windows\Setup\Scripts\RemoveCapability.ps1">
 $selectors = @(
 	'Language.Handwriting';
 	'Browser.InternetExplorer';
@@ -289,28 +247,24 @@ $removeCommand = {
   }
 };
 $type = 'Capability';
-$logfile = 'C:\Windows\Setup\Scripts\RemoveCapabilities.log';
-&amp; {
-	$installed = &amp; $getCommand;
-	foreach( $selector in $selectors ) {
-		$result = [ordered] @{
-			Selector = $selector;
-		};
-		$found = $installed | Where-Object -FilterScript $filterCommand;
-		if( $found ) {
-			$result.Output = $found | &amp; $removeCommand;
-			if( $? ) {
-				$result.Message = "$type removed.";
-			} else {
-				$result.Message = "$type not removed.";
-				$result.Error = $Error[0];
-			}
+$installed = &amp; $getCommand;
+foreach( $selector in $selectors ) {
+	$result = [ordered] @{
+		Selector = $selector;
+	};
+	if( $found = $installed | Where-Object -FilterScript $filterCommand ) {
+		$result.Output = $found | &amp; $removeCommand;
+		if( $? ) {
+			$result.Message = "${type} removed.";
 		} else {
-			$result.Message = "$type not installed.";
+			$result.Message = "${type} not removed.";
+			$result.Error = $Error[0];
 		}
-		$result | ConvertTo-Json -Depth 3 -Compress;
+	} else {
+		$result.Message = "${type} not installed.";
 	}
-} *&gt;&amp;1 &gt;&gt; $logfile;
+	$result | ConvertTo-Json -Depth 3 -Compress;
+}
 		</File>
 		<File path="C:\Windows\Setup\Scripts\TaskbarLayoutModification.xml">
 &lt;LayoutModificationTemplate xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification" xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout" xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout" xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout" Version="1"&gt;
@@ -381,27 +335,6 @@ End If
 	&lt;/Actions&gt;
 &lt;/Task&gt;
 		</File>
-		<File path="C:\Windows\Setup\Scripts\PauseWindowsUpdate.ps1">
-$formatter = {
-	$args[0].ToString( "yyyy'-'MM'-'dd'T'HH':'mm':'ssK" );
-};
-$now = [datetime]::UtcNow;
-$start = &amp; $formatter $now;
-$end = &amp; $formatter $now.AddDays( 7 );
-
-$params = @{
-	LiteralPath = 'Registry::HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings';
-	Type = 'String';
-	Force = $true;
-};
-
-Set-ItemProperty @params -Name 'PauseFeatureUpdatesStartTime' -Value $start;
-Set-ItemProperty @params -Name 'PauseFeatureUpdatesEndTime' -Value $end;
-Set-ItemProperty @params -Name 'PauseQualityUpdatesStartTime' -Value $start;
-Set-ItemProperty @params -Name 'PauseQualityUpdatesEndTime' -Value $end;
-Set-ItemProperty @params -Name 'PauseUpdatesStartTime' -Value $start;
-Set-ItemProperty @params -Name 'PauseUpdatesExpiryTime' -Value $end;
-		</File>
 		<File path="C:\Windows\Setup\Scripts\PauseWindowsUpdate.xml">
 &lt;Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task"&gt;
 	&lt;Triggers&gt;
@@ -441,30 +374,27 @@ Set-ItemProperty @params -Name 'PauseUpdatesExpiryTime' -Value $end;
 	&lt;Actions Context="Author"&gt;
 		&lt;Exec&gt;
 			&lt;Command&gt;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&lt;/Command&gt;
-			&lt;Arguments&gt;-Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\PauseWindowsUpdate.ps1' -Raw | Invoke-Expression;"&lt;/Arguments&gt;
+			&lt;Arguments&gt;-WindowStyle Hidden -NoProfile -NonInteractive -Command "$format = 'yyyy-MM-ddTHH\:mm\:ssK'; $now = [datetime]::UtcNow; $start = $now.ToString($format); $end = $now.AddDays(7).ToString($format); $params = @{ LiteralPath = 'Registry::HKLM\Software\Microsoft\WindowsUpdate\UX\Settings'; Type = 'String'; Force = $true; Verbose = $true; }; 'PauseFeatureUpdatesStartTime', 'PauseQualityUpdatesStartTime', 'PauseUpdatesStartTime' | foreach { Set-ItemProperty @params -Name $_ -Value $start; }; 'PauseFeatureUpdatesEndTime', 'PauseQualityUpdatesEndTime', 'PauseUpdatesExpiryTime' | foreach { Set-ItemProperty @params -Name $_ -Value $end; };"&lt;/Arguments&gt;
 		&lt;/Exec&gt;
 	&lt;/Actions&gt;
 &lt;/Task&gt;
 		</File>
 		<File path="C:\Windows\Setup\Scripts\MakeEdgeUninstallable.ps1">
-$ErrorActionPreference = 'Stop';
-&amp; {
-	try {
-		$params = @{
-			LiteralPath = 'C:\Windows\System32\IntegratedServicesRegionPolicySet.json';
-			Encoding = 'Utf8';
-		};
-		$o = Get-Content @params | ConvertFrom-Json;
-		$o.policies | ForEach-Object -Process {
-			if( $_.guid -eq '{1bca278a-5d11-4acf-ad2f-f9ab6d7f93a6}' ) {
-				$_.defaultState = 'enabled';
-			}
-		};
-		$o | ConvertTo-Json -Depth 9 | Out-File @params;
-	} catch {
-		$_;
-	}
-} *&gt;&amp;1 &gt;&gt; 'C:\Windows\Setup\Scripts\MakeEdgeUninstallable.log';
+try {
+	$params = @{
+		LiteralPath = 'C:\Windows\System32\IntegratedServicesRegionPolicySet.json';
+		Encoding = 'Utf8';
+	};
+	$o = Get-Content @params | ConvertFrom-Json;
+	$o.policies | ForEach-Object -Process {
+		if( $_.guid -eq '{1bca278a-5d11-4acf-ad2f-f9ab6d7f93a6}' ) {
+			$_.defaultState = 'enabled';
+		}
+	};
+	$o | ConvertTo-Json -Depth 9 | Out-File @params;
+} catch {
+	$_;
+}
 		</File>
 		<File path="C:\Windows\Setup\Scripts\SetStartPins.ps1">
 $json = '{"pinnedList":[]}';
@@ -538,216 +468,14 @@ $htmlAccentColor = '#0078D4';
 	Set-ItemProperty @params -Value $palette -Type 'Binary' -Force;
 };
 		</File>
-		<File path="C:\Windows\Setup\Scripts\unattend-01.reg">
-Windows Registry Editor Version 5.00
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32]
-@=""
-
-[HKEY_CURRENT_USER\SOFTWARE\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64]
-@=""
-
-[HKEY_USERS\.DEFAULT\Control Panel\Desktop]
-"AutoEndTasks"="1"
-
-[HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}]
-"System.IsPinnedToNameSpaceTree"=dword:00000000
-
-[HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}]
-"System.IsPinnedToNameSpaceTree"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Classes\.jpg]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\Software\Classes\.jpeg]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\Software\Classes\.gif]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\Software\Classes\.png]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\Software\Classes\.bmp]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\Software\Classes\.tiff]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_CURRENT_USER\Software\Classes\.ico]
-@="PhotoViewer.FileAssoc.Tiff"
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
-"HubMode"=dword:00000001
-
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
-
-[-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\RPC]
-"RpcUseNamedPipeProtocol"=dword:00000001
-"RpcOverTcp"=dword:00000000
-"RpcOverNamedPipes"=dword:00000001
-
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print]
-"RpcAuthnLevelPrivacyEnabled"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AFD\Parameters]
-"FastSendDatagramThreshold"=dword:00064000
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings]
-"FlightSettingsMaxPauseDays"=dword:00001c84
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
-"EnableLUA"=dword:00000001
-
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}]
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer]
-"NoAutoplay"=dword:00000001
-"NoDriveTypeAutoRun"=dword:000000FF
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
-"NoDriveTypeAutoRun"=dword:000000FF
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Psched]
-"NonBestEffortLimit"=dword:00000000
+		<File path="C:\Windows\Setup\Scripts\unattend-01.ps1">
+Start-Process powershell -Verb RunAs -ArgumentList "-Command (Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mm1rza/aio-mirza/refs/heads/main/Regedit/allinout.reg' -UseBasicParsing).Content | Out-File -FilePath $env:TEMP\allinout.reg -Encoding Unicode; reg import $env:TEMP\allinout.reg"
 		</File>
 		<File path="C:\Windows\Setup\Scripts\unattend-02.ps1">
-$localVersionFile = "C:\#mirza\#updateallfiles\version.txt"
-$remoteVersionUrl = "https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/version.txt"
-
-function Get-RemoteVersion {
-    param ($url)
-    $wc = New-Object net.webclient
-    return $wc.DownloadString($url)
-}
-
-if (Test-Path $localVersionFile) {
-    $localVersion = Get-Content $localVersionFile -Raw
-    Write-Host "Versi di komputer saat ini : $localVersion"
-} else {
-    Write-Host "File tidak ditemukan."
-    $localVersion = ""
-}
-
-$remoteVersion = Get-RemoteVersion $remoteVersionUrl
-Write-Host "Versi di cloud : $remoteVersion"
-
-if ($localVersion -eq $remoteVersion) {
-    Write-Host "Versi di komputer anda sudah terbaru."
-    $response = Read-Host "Apakah Anda ingin memaksa update? (Y/N)"
-    if ($response -eq 'Y') {
-        Write-Host "Memaksa update..."
-    } else {
-        Write-Host "Tidak ada update dilakukan."
-        exit
-    }
-} else {
-    Write-Host "Update tersedia."
-}
-
-Write-Host "Update Tersedia. Mengupdate files..."
-
-$folder = "C:\#mirza"
-if (Test-Path $folder) {
-    Write-Host "Menghapus folder dan subfolder: $folder"
-    Remove-Item $folder -Recurse -Force
-}
-
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-Write-Host " "
-
-Clear-Host
-
-$downloadUrl = "https://github.com/mm1rza/aio-mirza/archive/refs/heads/main.zip"
-$localPath = "C:\#mirza"
-$zipFilePath = "C:\#mirza\aio-mirza.zip"
-
-if (-Not (Test-Path $localPath)) {
-    New-Item -ItemType Directory -Path $localPath -Force
-}
-Write-Output "Download file dari $downloadUrl..."
-$wc = New-Object net.webclient
-$wc.DownloadFile($downloadUrl, $zipFilePath)
-Write-Output "Extract file ke $localPath..."
-Expand-Archive -Path $zipFilePath -DestinationPath $localPath -Force
-Write-Output "Membersihkan file..."
-Remove-Item $zipFilePath
-Write-Output "Download and extract selesai."
-
-$sumber = "C:\#mirza\aio-mirza-main"
-$tujuan = "C:\#mirza"
-if (-not (Test-Path -Path $tujuan)) {
-    Write-Host "Folder tujuan tidak ada. Membuat folder tujuan..."
-    New-Item -Path $tujuan -ItemType Directory
-} else {
-    Write-Host "Folder tujuan sudah ada."
-}
-Write-Host "Memindahkan file dan folder dari $sumber ke $tujuan..."
-Get-ChildItem -Path $sumber -Recurse | ForEach-Object {
-    $targetPath = Join-Path -Path $tujuan -ChildPath $_.FullName.Substring($sumber.Length)
-    if ($_.PSIsContainer) {
-        if (-not (Test-Path -Path $targetPath)) {
-            Write-Host "Membuat folder: $targetPath"
-            New-Item -Path $targetPath -ItemType Directory
-        }
-    } else {
-        Write-Host "Memindahkan file: $_.FullName ke $targetPath"
-        Move-Item -Path $_.FullName -Destination $targetPath -Force
-    }
-}
-Write-Host "Menghapus folder sumber..."
-Remove-Item -Path $sumber -Recurse -Force
-
-$files = @("C:\#mirza\README.md", "C:\#mirza\.gitattributes")
-foreach ($file in $files) {
-    if (Test-Path $file) {
-        Write-Host "Menghapus file: $file"
-        Remove-Item $file -Force
-    }
-}
-Write-Host "Update selesai."
+Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `"iex (iwr 'https://raw.githubusercontent.com/mm1rza/aio-mirza/main/%23updateallfiles/update.ps1' -UseBasicParsing)`"" -Verb RunAs
 		</File>
 		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
 $scripts = @(
-	{
-		reg.exe add "HKLM\SYSTEM\Setup\MoSetup" /v AllowUpgradesWithUnsupportedTPMOrCPU /t REG_DWORD /d 1 /f;
-	};
 	{
 		reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" /v BypassNRO /t REG_DWORD /d 1 /f;
 	};
@@ -755,7 +483,11 @@ $scripts = @(
 		Remove-Item -LiteralPath 'Registry::HKLM\Software\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\DevHomeUpdate' -Force -ErrorAction 'SilentlyContinue';
 	};
 	{
-		Remove-Item -LiteralPath 'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk', 'C:\Windows\System32\OneDriveSetup.exe', 'C:\Windows\SysWOW64\OneDriveSetup.exe' -ErrorAction 'Continue';
+		@(
+		  'C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk';
+		  'C:\Windows\System32\OneDriveSetup.exe';
+		  'C:\Windows\SysWOW64\OneDriveSetup.exe';
+		) | Where-Object -FilterScript { [System.IO.File]::Exists( $_ ); } | Remove-Item -Verbose -ErrorAction 'Continue';
 	};
 	{
 		Remove-Item -LiteralPath 'Registry::HKLM\Software\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\OutlookUpdate' -Force -ErrorAction 'SilentlyContinue';
@@ -764,10 +496,10 @@ $scripts = @(
 		reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v ConfigureChatAutoInstall /t REG_DWORD /d 0 /f;
 	};
 	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\RemovePackages.ps1' -Raw | Invoke-Expression;
+		&amp; 'C:\Windows\Setup\Scripts\RemovePackage.ps1';
 	};
 	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\RemoveCapabilities.ps1' -Raw | Invoke-Expression;
+		&amp; 'C:\Windows\Setup\Scripts\RemoveCapability.ps1';
 	};
 	{
 		net.exe accounts /lockoutthreshold:0;
@@ -784,9 +516,6 @@ $scripts = @(
 	};
 	{
 		Register-ScheduledTask -TaskName 'PauseWindowsUpdate' -Xml $( Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\PauseWindowsUpdate.xml' -Raw );
-	};
-	{
-		reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v DisableNotifications /t REG_DWORD /d 1 /f;
 	};
 	{
 		reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v VerifiedAndReputablePolicyState /t REG_DWORD /d 0 /f;
@@ -808,6 +537,9 @@ $scripts = @(
 	{
 		netsh.exe advfirewall firewall set rule group="@FirewallAPI.dll,-28752" new enable=Yes;
 		reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f;
+	};
+	{
+		Remove-Item -LiteralPath 'C:\Users\Public\Desktop\Microsoft Edge.lnk' -ErrorAction 'SilentlyContinue' -Verbose;
 	};
 	{
 		Set-ExecutionPolicy -Scope 'LocalMachine' -ExecutionPolicy 'RemoteSigned' -Force;
@@ -835,10 +567,10 @@ $scripts = @(
 		reg.exe add "HKLM\Software\Policies\Microsoft\Edge\Recommended" /v StartupBoostEnabled /t REG_DWORD /d 0 /f;
 	};
 	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\MakeEdgeUninstallable.ps1' -Raw | Invoke-Expression;
+		&amp; 'C:\Windows\Setup\Scripts\MakeEdgeUninstallable.ps1';
 	};
 	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\SetStartPins.ps1' -Raw | Invoke-Expression;
+		&amp; 'C:\Windows\Setup\Scripts\SetStartPins.ps1';
 	};
 	{
 		reg.exe add "HKU\.DEFAULT\Control Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ /d 10 /f;
@@ -849,15 +581,9 @@ $scripts = @(
   [float] $complete = 0;
   [float] $increment = 100 / $scripts.Count;
   foreach( $script in $scripts ) {
-    Write-Progress -Activity 'Running scripts to customize your Windows installation. Do not close this window.' -PercentComplete $complete;
+    Write-Progress -Id 0 -Activity 'Running scripts to customize your Windows installation. Do not close this window.' -PercentComplete $complete;
     '*** Will now execute command &#xAB;{0}&#xBB;.' -f $(
-      $str = $script.ToString().Trim() -replace '\s+', ' ';
-      $max = 100;
-      if( $str.Length -le $max ) {
-        $str;
-      } else {
-        $str.Substring( 0, $max - 1 ) + '&#x2026;';
-      }
+      $script.ToString().Trim() -replace '\s+', ' ' -replace '^(.{99})(.+)$', '$1&#x2026;';
     );
     $start = [datetime]::Now;
     &amp; $script;
@@ -865,7 +591,7 @@ $scripts = @(
     "`r`n" * 3;
     $complete += $increment;
   }
-} *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\Specialize.log";
+} *&gt;&amp;1 | Out-String -Width 1KB -Stream &gt;&gt; "C:\Windows\Setup\Scripts\Specialize.log";
 		</File>
 		<File path="C:\Windows\Setup\Scripts\UserOnce.ps1">
 $scripts = @(
@@ -877,6 +603,9 @@ $scripts = @(
 	};
 	{
 		[System.Diagnostics.EventLog]::WriteEntry( 'UnattendGenerator', "User '$env:USERNAME' has requested to unlock the Start menu layout.", [System.Diagnostics.EventLogEntryType]::Information, 1 );
+	};
+	{
+		Remove-Item -LiteralPath "${env:USERPROFILE}\Desktop\Microsoft Edge.lnk" -ErrorAction 'SilentlyContinue' -Verbose;
 	};
 	{
 		reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /f;
@@ -898,7 +627,7 @@ $scripts = @(
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{1cf1260c-4dd0-4ebb-811f-33c572699fde}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{f02c1a0d-be21-4350-88b0-7367fc96ef3c}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{3add1653-eb32-4cb0-bbd7-dfa0abb5acca}' -Value 1 -Type 'DWord';
-		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{645ff040-5081-101b-9f08-00aa002f954e}' -Value 0 -Type 'DWord';
+		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{645ff040-5081-101b-9f08-00aa002f954e}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{20d04fe0-3aea-1069-a2d8-08002b30309d}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{59031a47-3f72-44a7-89c5-5595fe6b30ee}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu' -Name '{a0953c92-50dc-43bf-be83-3742fed03c9c}' -Value 1 -Type 'DWord';
@@ -912,7 +641,7 @@ $scripts = @(
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{1cf1260c-4dd0-4ebb-811f-33c572699fde}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{f02c1a0d-be21-4350-88b0-7367fc96ef3c}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{3add1653-eb32-4cb0-bbd7-dfa0abb5acca}' -Value 1 -Type 'DWord';
-		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{645ff040-5081-101b-9f08-00aa002f954e}' -Value 0 -Type 'DWord';
+		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{645ff040-5081-101b-9f08-00aa002f954e}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{20d04fe0-3aea-1069-a2d8-08002b30309d}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{59031a47-3f72-44a7-89c5-5595fe6b30ee}' -Value 1 -Type 'DWord';
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{a0953c92-50dc-43bf-be83-3742fed03c9c}' -Value 1 -Type 'DWord';
@@ -921,13 +650,13 @@ $scripts = @(
 		Set-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Start' -Name 'VisiblePlaces' -Value $( [convert]::FromBase64String('L7Nn496JVUO/zmHzexipN4YIc1KqUUNCn3sndlhGWdQ=') ) -Type 'Binary';
 	};
 	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\SetColorTheme.ps1' -Raw | Invoke-Expression;
+		&amp; 'C:\Windows\Setup\Scripts\SetColorTheme.ps1';
 	};
 	{
-		reg.exe import "C:\Windows\Setup\Scripts\unattend-01.reg";
+		&amp; 'C:\Windows\Setup\Scripts\unattend-01.ps1';
 	};
 	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\unattend-02.ps1' -Raw | Invoke-Expression;
+		&amp; 'C:\Windows\Setup\Scripts\unattend-02.ps1';
 	};
 	{
 		Get-Process -Name 'explorer' -ErrorAction 'SilentlyContinue' | Where-Object -FilterScript {
@@ -940,15 +669,9 @@ $scripts = @(
   [float] $complete = 0;
   [float] $increment = 100 / $scripts.Count;
   foreach( $script in $scripts ) {
-    Write-Progress -Activity 'Running scripts to configure this user account. Do not close this window.' -PercentComplete $complete;
+    Write-Progress -Id 0 -Activity 'Running scripts to configure this user account. Do not close this window.' -PercentComplete $complete;
     '*** Will now execute command &#xAB;{0}&#xBB;.' -f $(
-      $str = $script.ToString().Trim() -replace '\s+', ' ';
-      $max = 100;
-      if( $str.Length -le $max ) {
-        $str;
-      } else {
-        $str.Substring( 0, $max - 1 ) + '&#x2026;';
-      }
+      $script.ToString().Trim() -replace '\s+', ' ' -replace '^(.{99})(.+)$', '$1&#x2026;';
     );
     $start = [datetime]::Now;
     &amp; $script;
@@ -956,7 +679,7 @@ $scripts = @(
     "`r`n" * 3;
     $complete += $increment;
   }
-} *&gt;&amp;1 &gt;&gt; "$env:TEMP\UserOnce.log";
+} *&gt;&amp;1 | Out-String -Width 1KB -Stream &gt;&gt; "$env:TEMP\UserOnce.log";
 		</File>
 		<File path="C:\Windows\Setup\Scripts\DefaultUser.ps1">
 $scripts = @(
@@ -968,6 +691,9 @@ $scripts = @(
 	};
 	{
 		Remove-ItemProperty -LiteralPath 'Registry::HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDriveSetup' -Force -ErrorAction 'Continue';
+	};
+	{
+		reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v AppCaptureEnabled /t REG_DWORD /d 0 /f;
 	};
 	{
 		reg.exe add "HKU\DefaultUser\Software\Policies\Microsoft\Windows\Explorer" /v "StartLayoutFile" /t REG_SZ /d "C:\Windows\Setup\Scripts\TaskbarLayoutModification.xml" /f;
@@ -1028,7 +754,7 @@ $scripts = @(
 		reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\DWM" /v ColorPrevalence /t REG_DWORD /d 0 /f;
 	};
 	{
-		reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v "UnattendedSetup" /t REG_SZ /d "powershell.exe -WindowStyle Hidden -NoProfile -Command \""Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\UserOnce.ps1' -Raw | Invoke-Expression;\""" /f;
+		reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v "UnattendedSetup" /t REG_SZ /d "powershell.exe -WindowStyle \""Hidden\"" -ExecutionPolicy \""Unrestricted\"" -NoProfile -File \""C:\Windows\Setup\Scripts\UserOnce.ps1\""" /f;
 	};
 );
 
@@ -1036,15 +762,9 @@ $scripts = @(
   [float] $complete = 0;
   [float] $increment = 100 / $scripts.Count;
   foreach( $script in $scripts ) {
-    Write-Progress -Activity 'Running scripts to modify the default user&#x2019;&#x2019;s registry hive. Do not close this window.' -PercentComplete $complete;
+    Write-Progress -Id 0 -Activity 'Running scripts to modify the default user&#x2019;&#x2019;s registry hive. Do not close this window.' -PercentComplete $complete;
     '*** Will now execute command &#xAB;{0}&#xBB;.' -f $(
-      $str = $script.ToString().Trim() -replace '\s+', ' ';
-      $max = 100;
-      if( $str.Length -le $max ) {
-        $str;
-      } else {
-        $str.Substring( 0, $max - 1 ) + '&#x2026;';
-      }
+      $script.ToString().Trim() -replace '\s+', ' ' -replace '^(.{99})(.+)$', '$1&#x2026;';
     );
     $start = [datetime]::Now;
     &amp; $script;
@@ -1052,7 +772,7 @@ $scripts = @(
     "`r`n" * 3;
     $complete += $increment;
   }
-} *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\DefaultUser.log";
+} *&gt;&amp;1 | Out-String -Width 1KB -Stream &gt;&gt; "C:\Windows\Setup\Scripts\DefaultUser.log";
 		</File>
 		<File path="C:\Windows\Setup\Scripts\FirstLogon.ps1">
 $scripts = @(
@@ -1078,15 +798,9 @@ $scripts = @(
   [float] $complete = 0;
   [float] $increment = 100 / $scripts.Count;
   foreach( $script in $scripts ) {
-    Write-Progress -Activity 'Running scripts to finalize your Windows installation. Do not close this window.' -PercentComplete $complete;
+    Write-Progress -Id 0 -Activity 'Running scripts to finalize your Windows installation. Do not close this window.' -PercentComplete $complete;
     '*** Will now execute command &#xAB;{0}&#xBB;.' -f $(
-      $str = $script.ToString().Trim() -replace '\s+', ' ';
-      $max = 100;
-      if( $str.Length -le $max ) {
-        $str;
-      } else {
-        $str.Substring( 0, $max - 1 ) + '&#x2026;';
-      }
+      $script.ToString().Trim() -replace '\s+', ' ' -replace '^(.{99})(.+)$', '$1&#x2026;';
     );
     $start = [datetime]::Now;
     &amp; $script;
@@ -1094,7 +808,7 @@ $scripts = @(
     "`r`n" * 3;
     $complete += $increment;
   }
-} *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\FirstLogon.log";
+} *&gt;&amp;1 | Out-String -Width 1KB -Stream &gt;&gt; "C:\Windows\Setup\Scripts\FirstLogon.log";
 		</File>
 	</Extensions>
 </unattend>

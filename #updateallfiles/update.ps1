@@ -392,9 +392,9 @@ Write-Host " Semua berkas di $targetDir telah sinkron." -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Green
 Write-Host ""
 
-# Hitung mundur 30 detik: otomatis tutup atau langsung keluar jika ditekan sembarang tombol
+# Hitung mundur 20 detik: otomatis tutup atau langsung keluar jika ditekan sembarang tombol
 try {
-    for ($sec = 30; $sec -gt 0; $sec--) {
+    for ($sec = 20; $sec -gt 0; $sec--) {
         if ([Console]::KeyAvailable) {
             [Console]::ReadKey($true) | Out-Null
             break
