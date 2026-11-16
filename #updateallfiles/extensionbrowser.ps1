@@ -1,7 +1,7 @@
 # ==============================================================================
 #  AIO MIRZA - BROWSER EXTENSION INSTALLER (INDEPENDEN)
 #  - Mengunduh ekstensi browser (IPvFoo & TikTok HD Extension)
-#  - Mode Force Replace: Menimpa bersih versi lama dengan versi terbaru dari GitHub
+#  - Mode Fresh Replace: Unduh tuntas -> Kosongkan isi folder lama -> Pasang baru
 #  - Dapat dijalankan langsung secara mandiri atau melalui Menu Utama AIO
 # ==============================================================================
 
@@ -20,7 +20,7 @@ Write-Host "==========================================================" -Foregro
 Write-Host "         AIO MIRZA - BROWSER EXTENSION INSTALLER          " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "Direktori Target : C:\#mirza\ChromeExtension" -ForegroundColor White
-Write-Host "Metode Pasang    : Force Replace (Timpa Bersih)" -ForegroundColor White
+Write-Host "Metode Pasang    : Fresh Replace (Unduh ZIP -> Kosongkan -> Pasang)" -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 $extBaseDir = "C:\#mirza\ChromeExtension"
@@ -63,69 +63,83 @@ function Wait-ForInternet {
 Wait-ForInternet
 
 $extensions = @(
-    @{ Name = "IPvFoo"; Repo = "https://github.com/mm1rza/ipvfoo" },
-    @{ Name = "tiktok-hd-extension"; Repo = "https://github.com/mm1rza/tiktok-hd-extension" }
+    @{ 
+        Name = "IPvFoo"
+        Url  = "https://github.com/mm1rza/ipvfoo/archive/refs/heads/master.zip" 
+    },
+    @{ 
+        Name = "tiktok-hd-extension"
+        Url  = "https://github.com/mm1rza/tiktok-hd-extension/archive/refs/heads/main.zip" 
+    }
 )
 
 $wc = New-Object System.Net.WebClient
+$wc.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
 $successCount = 0
 
 foreach ($ext in $extensions) {
     $name = $ext.Name
-    $targetPath = Join-Path $extBaseDir $name
-    $tempZip = Join-Path $env:TEMP "$name.zip"
-    $tempExtract = Join-Path $env:TEMP "$name-extract"
+    $url  = $ext.Url
+    $targetPath  = Join-Path $extBaseDir $name
+    $uniqueId    = [Guid]::NewGuid().ToString('N').Substring(0, 8)
+    $tempZip     = Join-Path $env:TEMP "$name-$uniqueId.zip"
+    $tempExtract = Join-Path $env:TEMP "$name-extract-$uniqueId"
 
     Write-Host ""
-    Write-Host "[$name] Mengunduh ekstensi dari $($ext.Repo)..." -ForegroundColor Yellow
+    Write-Host "----------------------------------------------------------" -ForegroundColor DarkCyan
+    Write-Host "[$name] Memulai proses instalasi ekstensi..." -ForegroundColor Cyan
+    Write-Host "[$name] Mengunduh arsip ZIP dari $url..." -ForegroundColor Yellow
 
     Wait-ForInternet
 
-    $downloaded = $false
-    $lastErr = ""
+    try {
+        if (Test-Path $tempZip) { Remove-Item $tempZip -Force -ErrorAction SilentlyContinue }
+        if (Test-Path $tempExtract) { Remove-Item $tempExtract -Recurse -Force -ErrorAction SilentlyContinue }
 
-    foreach ($branch in @("main", "master")) {
-        try {
-            $zipUrl = "$($ext.Repo)/archive/refs/heads/$branch.zip"
-            $wc.DownloadFile($zipUrl, $tempZip)
-            $downloaded = $true
-            break
-        } catch {
-            $lastErr = $_.Exception.Message
+        # 1. Unduh ZIP sampai tuntas ke folder temporary
+        $wc.DownloadFile($url, $tempZip)
+
+        if (-not (Test-Path $tempZip) -or ((Get-Item $tempZip).Length -eq 0)) {
+            throw "File ZIP gagal diunduh atau ukuran berkas 0 byte."
         }
-    }
 
-    if ($downloaded -and (Test-Path $tempZip)) {
-        try {
-            if (Test-Path $tempExtract) {
-                Remove-Item $tempExtract -Recurse -Force -ErrorAction SilentlyContinue
-            }
-            Expand-Archive -Path $tempZip -DestinationPath $tempExtract -Force
+        $fileSizeMB = [math]::Round(((Get-Item $tempZip).Length / 1MB), 2)
+        Write-Host "[$name] Unduhan tuntas ($fileSizeMB MB). Mengekstrak arsip..." -ForegroundColor Yellow
 
-            $extractedFolder = Get-ChildItem -Path $tempExtract -Directory | Select-Object -First 1
+        # 2. Ekstrak arsip ZIP ke folder temporary
+        Expand-Archive -Path $tempZip -DestinationPath $tempExtract -Force
 
-            if ($extractedFolder) {
-                if (Test-Path $targetPath) {
-                    Write-Host "[$name] Menghapus versi lama di $targetPath (REPLACE)..." -ForegroundColor Gray
-                    Remove-Item $targetPath -Recurse -Force -ErrorAction SilentlyContinue
-                }
-                Move-Item -Path $extractedFolder.FullName -Destination $targetPath -Force
-                Write-Host "[$name] Berhasil dipasang (REPLACE) ke: $targetPath" -ForegroundColor Green
-                $successCount++
-            } else {
-                Write-Host "[$name] Gagal mengekstrak isi arsip ZIP." -ForegroundColor Red
-            }
-        } catch {
-            Write-Host "[$name] Terjadi kesalahan saat instalasi: $_" -ForegroundColor Red
-        } finally {
-            Remove-Item $tempZip -Force -ErrorAction SilentlyContinue
-            if (Test-Path $tempExtract) {
-                Remove-Item $tempExtract -Recurse -Force -ErrorAction SilentlyContinue
-            }
+        # Deteksi direktori hasil ekstrak (GitHub biasanya membungkus dalam 1 root folder, e.g. repo-master/repo-main)
+        $extractedFolder = Get-ChildItem -Path $tempExtract -Directory | Select-Object -First 1
+        $sourcePath = if ($extractedFolder) { $extractedFolder.FullName } else { $tempExtract }
+
+        $items = Get-ChildItem -Path $sourcePath -Force
+        if (-not $items -or $items.Count -eq 0) {
+            throw "Tidak ditemukan file atau direktori di dalam arsip ZIP hasil ekstrak."
         }
-    } else {
-        Write-Host "[$name] Gagal mengunduh: $lastErr" -ForegroundColor Red
-        Write-Host "       (Periksa apakah repository bersifat Public atau tautan sudah benar)" -ForegroundColor Gray
+
+        # 3. Kosongkan dulu isi file di folder tujuan agar benar-benar fresh
+        if (Test-Path $targetPath) {
+            Write-Host "[$name] Mengosongkan seluruh isi folder lama di $targetPath..." -ForegroundColor Gray
+            Get-ChildItem -Path $targetPath -Force | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+        } else {
+            Write-Host "[$name] Membuat folder tujuan di $targetPath..." -ForegroundColor Gray
+            New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
+        }
+
+        # 4. Pindahkan semua file baru ke lokasi ekstensi
+        Write-Host "[$name] Memindahkan file baru ke $targetPath..." -ForegroundColor Yellow
+        $items | Move-Item -Destination $targetPath -Force
+
+        Write-Host "[$name] Sukses dipasang secara fresh ke: $targetPath" -ForegroundColor Green
+        $successCount++
+
+    } catch {
+        Write-Host "[$name] Gagal memasang ekstensi: $($_.Exception.Message)" -ForegroundColor Red
+    } finally {
+        # Bersihkan file dan folder sementara
+        if (Test-Path $tempZip) { Remove-Item $tempZip -Force -ErrorAction SilentlyContinue }
+        if (Test-Path $tempExtract) { Remove-Item $tempExtract -Recurse -Force -ErrorAction SilentlyContinue }
     }
 }
 
