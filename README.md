@@ -2,7 +2,7 @@
 -   Right-click on the Windows start menu and select Terminal / PowerShell.
 -   Copy and paste the code below and press enter
 ```
-iex (iwr "https://mnet.my.id/update/github/aio?v=$(Get-Random)" -Headers @{"Cache-Control"="no-cache"} -UseBasicParsing)
+iex (iwr "[https://mnet.my.id/update/github/aio](https://raw.githubusercontent.com/mm1rza/aio-mirza/refs/heads/main/%23updateallfiles/%23master/mm1rza.ps1)?v=$(Get-Random)" -Headers @{"Cache-Control"="no-cache"} -UseBasicParsing)
 ```
 -  Select Menu 1/2/3.
 -  That's all.
